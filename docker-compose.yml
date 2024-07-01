@@ -1,0 +1,22 @@
+version: '25.0.3'  
+services:
+  web:
+    build: ./app  
+    ports:
+      - "3000:3000"  
+    depends_on:
+      - db  
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: tirtza
+      POSTGRES_PASSWORD: 6200
+    ports:
+      - "5432:5432"  
+    volumes:
+      - db-data:/var/lib/postgresql/data 
+
+volumes:
+  db-data:  
