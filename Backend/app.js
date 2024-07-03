@@ -1,8 +1,12 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const transport_router = require('./routers/transport');
 const app = express();
-const example_router = require('./routers/example')
+require('dotenv').config();
 
-app.use('/example', example_router)
+app.use(bodyParser.json());
+
+app.use('/api', transport_router);
 
 app.get('/', (req, res) => {
   res.send('Hello Transports!');
