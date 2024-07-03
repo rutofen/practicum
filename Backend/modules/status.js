@@ -17,7 +17,7 @@ async function add_status(description) {
         throw error;
     }
 }
-async function update_status(id, description) {
+async function updateStatus(id, description) {
     try {
         const result = await pool.query('UPDATE status SET description = $1 WHERE status_id = $2 RETURNING *', [description, id]);
         return result.rows[0];
@@ -38,6 +38,6 @@ async function delete_status(id) {
 module.exports = {
     get_status_list,
     add_status,
-    update_status,
+    updateStatus,
     delete_status
 };
