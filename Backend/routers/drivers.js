@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { createDriver, getDriverById, updateDriver, deleteDriver ,getAllDrivers } = require('../modules/driversModuls'); 
 
-// POST
 router.post('/', async (req, res) => {
   const { name, workTime } = req.body;
   try {
@@ -14,7 +13,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// GET 
 
 router.get('/', async (req, res) => {
   try {
@@ -41,7 +39,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// PUT 
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const { name, workTime } = req.body;
@@ -58,7 +55,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   try {

@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 
-const pool = new Pool({
+const PullFromSQL  = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'drivers', 
@@ -10,10 +10,10 @@ const pool = new Pool({
 
 async function query(text, params) {
   const start = Date.now();
-  const res = await pool.query(text, params);
+  const res = await PullFromSQL.query(text, params);
   const duration = Date.now() - start;
   console.log('Executed query:', { text, duration, rows: res.rowCount });
-  return res;
+  return res.rowCount;
 }
 
 async function createDriver(name, workTime) {
@@ -39,8 +39,8 @@ async function updateDriver(id, name, workTime) {
 async function deleteDriver(id) {
   const queryText = 'DELETE FROM driver WHERE id = $1';
   await query(queryText, [id]);
+  return result.rows[0].id;
 }
-
 
 async function getAllDrivers() {
   const queryText = 'SELECT * FROM driver';
