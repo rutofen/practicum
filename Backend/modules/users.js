@@ -5,7 +5,6 @@ require('dotenv').config();
 const getUsers = async function () {
     try {
         const res = await pool.query('SELECT * FROM users');
-        console.log(res.rows);
         return res.rows;
     } catch (error) {
         console.error('Error getting users:', error);
