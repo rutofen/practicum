@@ -1,0 +1,13 @@
+logs
+*.log
+pids
+*.pid
+*.seed
+*.pid.lock
+dist
+node_modules/
+.env
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
