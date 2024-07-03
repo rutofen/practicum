@@ -12,8 +12,7 @@ const getUsers = async function () {
     }
 };
 
-const addUser = async function (reqBody) {
-    const { user_id, name, phone, email, password_information, driver_id } = reqBody;
+const addUser = async function (user_id, name, phone, email, password_information, driver_id ) {
 
     const driverCheckRes = await pool.query('SELECT * FROM drivers WHERE id = $1', [driver_id]);
     if (driverCheckRes.rowCount === 0) {
