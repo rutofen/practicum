@@ -1,10 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const statusRouter = require('./routers/status');
+const userRouter = require('./routers/usersRoutes');
 const app = express();
 
 app.use(bodyParser.json());
-app.use('/api', statusRouter);
+app.use('/api', userRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello Transports!');
