@@ -26,7 +26,7 @@ router.post('/status', async (req, res) => {
 
 router.put('/status/:id', async (req, res) => {
     try {
-        const updatedStatus = await statusModule.updateStatus(req.params.id, req.body.description);
+        const updatedStatus = await statusModule.update_status(req.params.id, req.body.description);
         res.status(200).json(updatedStatus);
     } catch (error) {
         res.status(500).json({ error: error.message });
