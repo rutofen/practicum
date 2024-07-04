@@ -7,17 +7,48 @@ const pool = new Pool({
   host: db_host,
   port: db_port,
   database: db_name,
+  ssl: false
 })
 
-async function checkDatabaseConnection() {
+async function create_tracking_table() {
+  const checkTableQuery = `
+    SELECT EXISTS (
+      SELECT 1
+      FROM information_schema.tables
+      WHERE table_name = 'tracking'
+    );
+  `;
+  
+  const createTableQuery = `
+    CREATE TABLE tracking (
+      Track_id SERIAL PRIMARY KEY,
+      Location_lat DOUBLE PRECISION NOT NULL,
+      Location_lng DOUBLE PRECISION NOT NULL,
+      Time TIMESTAMP NOT NULL,
+      Transport_id INTEGER   
+    );
+  `
+  let client;
   try {
-    const client = await pool.connect()
-    const res = await client.query('SELECT NOW()')
-    client.release()
-  } catch (error) {
-    console.error('Error connecting to PostgreSQL database:', error)
+    client = await pool.connect()
+    const result = await client.query(checkTableQuery)
+    const tableExists = result.rows[0].exists
+
+    if (!tableExists) {
+      await client.query(createTableQuery)
+      console.log('Created tracking table successfully')
+    } else {
+      console.log('Tracking table already exists')
+    }
+  } catch (err) {
+    console.error('Error checking/creating tracking table', err)
+  } finally {
+    if (client) {
+      client.release()
+    }
   }
-
 }
-
-module.exports = { pool, checkDatabaseConnection }
+module.exports = {
+  pool,
+  create_tracking_table,
+}
