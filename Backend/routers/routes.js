@@ -2,7 +2,7 @@ const express = require('express');
 const { createRoute, getRoutes, updateRoute, deleteRoute } = require('../modules/routes');
 const router = express.Router();
 
-router.post('/routes', async (req, res) => {
+router.post('/create', async (req, res) => {
     const { departureLocation, destinationLocation, departureTime, arrivalTime, trackId, transportId } = req.body;
     try {
         const routeId = await createRoute(departureLocation, destinationLocation, departureTime, arrivalTime, trackId, transportId);
@@ -13,7 +13,7 @@ router.post('/routes', async (req, res) => {
 });
 
 
-router.get('/routes', async (req, res) => {
+router.get('/list', async (req, res) => {
     try {
         const routes = await getRoutes();
         res.status(200).json(routes);
@@ -23,7 +23,7 @@ router.get('/routes', async (req, res) => {
 });
 
 
-router.put('/routes/:id', async (req, res) => {
+router.put('/update/:id', async (req, res) => {
     const routeId = req.params.id;
     const { departureLocation, destinationLocation, departureTime, arrivalTime, trackId, transportId } = req.body;
     try {
@@ -36,7 +36,7 @@ router.put('/routes/:id', async (req, res) => {
 });
 
 
-router.delete('/routes/:id', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
     const routeId = req.params.id;
     try {
         await deleteRoute(routeId);
