@@ -40,7 +40,6 @@ const getTransportById = async (id) => {
 };
 
 
-// Function to get all transports
 const getTransports = async () => {
     let client;
     try {
@@ -59,7 +58,7 @@ const getTransports = async () => {
 };
 
 
-const updateTransport = async (id,transport) => {
+const updateTransport = async (id, transport) => {
     let client;
     try {
         client = await pool.connect();
@@ -68,13 +67,13 @@ const updateTransport = async (id,transport) => {
             SET date = $1, location_address = $2, location_lat = $3, location_lng = $4, count_order = $5, additional_quantity = $6, status = $7, driver_id = $8, pump_id = $9, pipe_count = $10, transfers = $11
             WHERE id = $12
             RETURNING *`;
-        const values = [transport.date, transport.location_address, transport.location_lat, transport.location_lng, transport.count_order, transport.additional_quantity, transport.status, transport.driver_id, transport.pump_id, transport.pipe_count, transport.transfers,id];
-        const res = await client.query(query,values);
+        const values = [transport.date, transport.location_address, transport.location_lat, transport.location_lng, transport.count_order, transport.additional_quantity, transport.status, transport.driver_id, transport.pump_id, transport.pipe_count, transport.transfers, id];
+        const res = await client.query(query, values);
         return res.rows[0];
     } catch (err) {
         console.log('Error executing query', err);
         throw err;
-    }finally {
+    } finally {
         if (client) {
             client.release();
         }
@@ -87,11 +86,11 @@ const deleteTransport = async (id) => {
     try {
         client = await pool.connect();
         const query = 'DELETE FROM Transport WHERE id = $1 RETURNING *';
-        const res = await client.query(query,[id]);
+        const res = await client.query(query, [id]);
         return res.rows[0];
     } catch (err) {
         console.log('Error executing query', err);
-    }finally {
+    } finally {
         if (client) {
             client.release();
         }

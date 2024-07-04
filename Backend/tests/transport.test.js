@@ -9,7 +9,7 @@ describe('Transport API', () => {
         await pool.end();
     });
 
-    
+
     test('should create a new transport', async () => {
         const response = await request(app)
             .post('/api/addTransport')
