@@ -13,7 +13,7 @@ async function query(text, params) {
   const res = await PullFromSQL.query(text, params);
   const duration = Date.now() - start;
   console.log('Executed query:', { text, duration, rows: res.rowCount });
-  return res.rowCount;
+  return res;
 }
 
 async function createDriver(name, workTime) {
@@ -39,13 +39,15 @@ async function updateDriver(id, name, workTime) {
 async function deleteDriver(id) {
   const queryText = 'DELETE FROM driver WHERE id = $1';
   await query(queryText, [id]);
-  return result.rows[0].id;
+  return id;
 }
+
 
 async function getAllDrivers() {
   const queryText = 'SELECT * FROM driver';
   const result = await query(queryText, []);
   return result.rows;
+  
 }
 module.exports = {
   createDriver,
