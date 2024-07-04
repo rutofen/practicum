@@ -1,6 +1,6 @@
 const pool = require('../core/config_db');
 
-async function get_status_list() {
+async function getStatusList() {
     try {
         const result = await pool.query('SELECT * FROM status');
         return result.rows;
@@ -9,7 +9,7 @@ async function get_status_list() {
     }
 }
 
-async function add_status(description) {
+async function addStatus(description) {
     try {
         const result = await pool.query('INSERT INTO status (description) VALUES ($1) RETURNING *', [description]);
         return result.rows[0];
@@ -17,7 +17,7 @@ async function add_status(description) {
         throw error;
     }
 }
-async function update_status(id, description) {
+async function updateStatus(id, description) {
     try {
         const result = await pool.query('UPDATE status SET description = $1 WHERE status_id = $2 RETURNING *', [description, id]);
         return result.rows[0];
@@ -25,7 +25,7 @@ async function update_status(id, description) {
         throw error;
     }
 }
-async function delete_status(id) {
+async function deleteStatus(id) {
     try {
         const result = await pool.query('DELETE FROM status WHERE status_id = $1 RETURNING *', [id]);
         return result.rows;
@@ -36,8 +36,8 @@ async function delete_status(id) {
 
 
 module.exports = {
-    get_status_list,
-    add_status,
-    update_status,
-    delete_status
+    getStatusList,
+    addStatus,
+    updateStatus,
+    deleteStatus
 };

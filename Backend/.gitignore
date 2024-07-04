@@ -5,7 +5,7 @@ pids
 *.seed
 *.pid.lock
 dist
-node_modules/
+/node_modules
 .env
 .vscode/
 .idea/
