@@ -1,7 +1,5 @@
-//modules/tracking
 const { pool } = require('../core/config_db')
 
-// Create
 const createTracking = async (location_lat, location_lng, time, transport_id) => {
     let client
     try {
@@ -18,12 +16,10 @@ const createTracking = async (location_lat, location_lng, time, transport_id) =>
     } finally {
         if (client) {
             client.release()
-            console.log("client released")
         }
     }
 }
 
-// Read
 const getAllTracking = async () => {
     let client
     try {
@@ -37,12 +33,10 @@ const getAllTracking = async () => {
     } finally {
         if (client) {
             client.release()
-            console.log("client released")
         }
     }
 }
 
-// Update
 const updateTracking = async (track_id, location_lat, location_lng, time, transport_id) => {
     let client
     try {
@@ -61,12 +55,10 @@ const updateTracking = async (track_id, location_lat, location_lng, time, transp
     } finally {
         if (client) {
             client.release()
-            console.log("client released")
         }
     }
 }
 
-// Delete
 const deleteTracking = async (track_id) => {
     let client
     try {
@@ -76,14 +68,13 @@ const deleteTracking = async (track_id) => {
         RETURNING *`
         client = await pool.connect()
         const res = await client.query(query, [track_id])
-        // return res.rows[0]
+        return res.rows[0]
     } catch (err) {
         console.error('Error deleting tracking:', err.message)
         throw err
     } finally {
         if (client) {
             client.release()
-            console.log("client released")
         }
     }
 }
@@ -94,4 +85,3 @@ module.exports = {
     updateTracking,
     deleteTracking,
 }
-

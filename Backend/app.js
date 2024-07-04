@@ -1,5 +1,3 @@
-//app.js
-
 require('dotenv').config()
 const express = require('express')
 const app = express()
@@ -13,7 +11,6 @@ app.use('/tracking', trackingRouter)
 
 app.get('/', (req, res) => {
   res.send('Hello Transports!')
-  console.log('Hello Transports')
 })
 
 module.exports = app
