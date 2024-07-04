@@ -1,13 +1,12 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const statusRouter = require('./routers/status');
 const app = express();
+const routesRouter = require('./routers/routes');
 
-app.use(bodyParser.json());
-app.use('/api', statusRouter);
+app.use(express.json());
+app.use('/api', routesRouter);
 
 app.get('/', (req, res) => {
-  res.send('Hello Transports!');
+    res.send('Hello Transports!');
 });
 
 module.exports = app;

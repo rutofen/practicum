@@ -5,5 +5,6 @@ const port = process.env.PORT || 3010;
 const host = process.env.HOST || '127.0.0.1';
 
 app.listen(port, () => {
-  console.log(`Server running at http://${host}:${port}/`);
+    console.log(`Server running at http://${host}:${port}/`);
 });
+
