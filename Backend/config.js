@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //config.js
 
 // dotenv.config()
@@ -16,3 +17,12 @@ module.exports = {
     db_host,
     db_port
 }
+=======
+module.exports = {
+    db_name: process.env.DB_NAME,
+    db_user: process.env.DB_USERNAME,
+    db_pass: process.env.DB_PASSWORD,
+    db_host: process.env.DB_HOST,
+    db_port: process.env.DB_PORT
+};
+>>>>>>> 01b986917a439771d848ecea1f6ea3c66d832d17
