@@ -1,11 +1,20 @@
-const express = require('express');
-const app = express();
-const example_router = require('./routers/example')
+//app.js
 
-app.use('/example', example_router)
+require('dotenv').config()
+const express = require('express')
+const app = express()
+const trackingRouter = require('./routers/tracking')
+const { checkDatabaseConnection } = require('./core/config_db')
+
+app.use(express.json())
+checkDatabaseConnection()
+
+app.use('/tracking', trackingRouter)
 
 app.get('/', (req, res) => {
-  res.send('Hello Transports!');
-});
+  res.send('Hello Transports!')
+  console.log('Hello Transports')
+})
 
-module.exports = app;
+module.exports = app
+
