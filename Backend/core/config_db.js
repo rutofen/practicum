@@ -17,7 +17,7 @@ async function create_tracking_table() {
       WHERE table_name = 'driver'
     );
   `;
-  
+
   const createTableQuery = `
     CREATE TABLE driver (
       Id SERIAL PRIMARY KEY,
@@ -25,7 +25,6 @@ async function create_tracking_table() {
       WorkTime INTEGER NOT NULL
     );
   `;
-
   let client;
   try {
     client = await pool.connect();
