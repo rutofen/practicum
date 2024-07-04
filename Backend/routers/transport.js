@@ -15,11 +15,11 @@ router.post('/addTransport', async (req, res) => {
 router.get('/getTransport/:id', async (req, res) => {
     try {
         const transport = await transports_modules.getTransportById(req.params.id);
-        if (transport) {
-            res.json(transport);
-        } else {
+        if (!transport) {
             res.status(404).json({ error: 'Transport not found' });
+
         }
+        res.status(200).json(transport);
     } catch (err) {
         res.status(500).json({ error: 'Internal server error' });
     }
