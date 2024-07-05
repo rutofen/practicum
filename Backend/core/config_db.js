@@ -1,23 +1,11 @@
-const {db_name,db_user,db_pass,db_host,db_port} = require('../config')
+const { Pool } = require('pg');
 
-const pg = require('pg')
-const { Pool, Client } = pg
- 
-// const pool = new Pool({
-//   user: 'dbuser',
-//   password: 'secretpassword',
-//   host: 'database.server.com',
-//   port: 3211,
-//   database: 'mydb',
-// })
- 
-const client = new Client({
-  user: db_name,
-  password: db_pass,
-  host: db_host,
-  port: db_port,
-  database: db_user,
-})
+const pool = new Pool({
+  user: process.env.DB_USERNAME,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
+});
 
-module.exports = client
- 
+module.exports = pool;
