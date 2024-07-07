@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { pool } = require('../dbConfig'); // הנח שהחיבור ל-DB מוגדר בקובץ זה
+const { pool } = require('../dbConfig'); // צריכה לחבר כאן לטבלה של USERS
 
 const registerUser = async (req, res) => {
   const { name, phone, email, password, driverId } = req.body;
