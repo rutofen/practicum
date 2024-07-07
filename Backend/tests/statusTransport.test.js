@@ -17,11 +17,11 @@ describe('POST /status-transport', () => {
     expect(res.statusCode).toEqual(201);
     expect(res.body).toHaveProperty('transport_status_id');
     expect(res.body).toHaveProperty('update_time');
-    expect(res.body).toHaveProperty('user_id', 6); // Ensure user_id matches the ID of the user you're testing with
+    expect(res.body).toHaveProperty('user_id', 6);
   });
 
   it('should return 500 on server error', async () => {
-    // Simulate server error by sending invalid data
+    
     const res = await request(app)
       .post('/status-transport')
       .send({
@@ -35,7 +35,7 @@ describe('POST /status-transport', () => {
 
 describe('GET /status-transport/:id', () => {
   it('should get status transport by id', async () => {
-    const res = await request(app).get('/status-transport/27'); // Use an existing transport_status_id
+    const res = await request(app).get('/status-transport/27'); 
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('transport_status_id', 27);
     expect(res.body).toHaveProperty('status_id', 2);
@@ -43,7 +43,7 @@ describe('GET /status-transport/:id', () => {
   });
 
   it('should return 404 for a non-existent status transport id', async () => {
-    // Simulate server error by requesting a non-existent ID
+   
     const res = await request(app).get('/status-transport/99999');
     expect(res.statusCode).toEqual(404);
     expect(res.body).toHaveProperty('error');
@@ -53,11 +53,11 @@ describe('GET /status-transport/:id', () => {
 describe('PUT /status-transport/:id', () => {
   it('should update status transport by id', async () => {
     const res = await request(app)
-      .put('/status-transport/27') // Use an existing transport_status_id
+      .put('/status-transport/27') 
       .send({
-        status_id: 1, // Update to an existing status_id
-        update_time: '2024-07-04 12:00:00', // New update time
-        user_id: 5, // Existing user_id
+        status_id: 1, 
+        update_time: '2024-07-04 12:00:00', 
+        user_id: 5, 
       });
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('transport_status_id', 27);
@@ -66,7 +66,6 @@ describe('PUT /status-transport/:id', () => {
   });
 
   it('should return 500 on server error', async () => {
-    // Simulate server error by sending invalid data
     const res = await request(app)
       .put('/status-transport/27')
       .send({
@@ -81,13 +80,13 @@ describe('PUT /status-transport/:id', () => {
 
 describe('DELETE /status-transport/:id', () => {
   it('should delete status transport by id', async () => {
-    const res = await request(app).delete('/status-transport/27'); // Use an existing transport_status_id
+    const res = await request(app).delete('/status-transport/27'); 
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('message', 'Record deleted successfully');
   });
 
   it('should return 404 for a non-existent status transport id', async () => {
-    // Simulate server error by requesting a non-existent ID
+    
     const res = await request(app).delete('/status-transport/99999');
     expect(res.statusCode).toEqual(404);
     expect(res.body).toHaveProperty('error');
