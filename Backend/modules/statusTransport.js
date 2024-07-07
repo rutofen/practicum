@@ -1,4 +1,4 @@
-const pool = require('../core/config_db');
+const { pool } = require('../core/config_db');
 
 const createStatusTransport = async (status_id, user_id) => {
   let client;
