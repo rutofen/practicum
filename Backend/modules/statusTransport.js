@@ -16,7 +16,7 @@ const createStatusTransport = async (status_id, user_id) => {
     console.error('Error creating status transport:', err);
     throw err;
   } finally {
-    client.release(); // שחרור החיבור לאחר שימוש
+    client.release();
   }
 };
 
@@ -34,7 +34,7 @@ const getStatusTransportById = async (id) => {
     console.error('Error getting status transport by ID:', err);
     throw err;
   } finally {
-    client.release(); // שחרור החיבור לאחר שימוש
+    client.release();
   }
 };
 
@@ -58,7 +58,7 @@ const updateStatusTransport = async (id, status_id, user_id, update_time) => {
     console.error('Error updating status transport:', err);
     throw err;
   } finally {
-    client.release(); // שחרור החיבור לאחר שימוש
+    client.release();
   }
 };
 
@@ -76,7 +76,7 @@ const deleteStatusTransport = async (id) => {
     console.error('Error deleting status transport:', err);
     throw err;
   } finally {
-    client.release(); // שחרור החיבור לאחר שימוש
+    client.release();
   }
 };
 
