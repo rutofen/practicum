@@ -1,4 +1,4 @@
-const pool = require("../core/config_db");
+const { pool } = require("../core/config_db");
 
 const createTransport = async (transport) => {
     let client;
