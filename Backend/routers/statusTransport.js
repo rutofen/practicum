@@ -9,6 +9,7 @@ const {
 const router = express.Router();
 
 router.post('/', async (req, res) => {
+  console.log("im in post / status transfort");
   const { status_id, user_id } = req.body;
   try {
     const result = await createStatusTransport(status_id, user_id);
@@ -20,8 +21,10 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
+  console.log("before ");
   try {
     const result = await getStatusTransportById(id);
+    console.log("try......");
     res.status(200).json(result);
   } catch (err) {
     res.status(500).json({ error: 'Error getting status transport by ID' });

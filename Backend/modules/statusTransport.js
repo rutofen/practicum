@@ -4,16 +4,21 @@ const createStatusTransport = async (status_id, user_id) => {
   let client;
   try {
     client = await pool.connect();
+    console.log("before db query");
     const query = `
       INSERT INTO StatusTransport (status_id, update_time, user_id) 
       VALUES ($1, CURRENT_TIMESTAMP, $2) 
       RETURNING *;
     `;
+    
     const values = [status_id, user_id];
     const res = await client.query(query, values);
+    
+    console.log("after db query");
+    console.log(res);
     return res.rows[0];
   } catch (err) {
-    console.error('Error creating status transport:', err);
+    console.error('Error insert status transport:', err);
     throw err;
   } finally {
     client.release();

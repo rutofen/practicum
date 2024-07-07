@@ -10,8 +10,6 @@ const pool = new Pool({
   database: db_name,
 });
 
-
-
 const createStatusTransportTable = async () => {
   const query = `
     CREATE TABLE IF NOT EXISTS statustransport (

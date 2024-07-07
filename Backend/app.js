@@ -8,9 +8,9 @@ app.use(express.json());
 app.use('/status-transport', statusTransportRouter);
 
 
-app.get('/', (req, res) => {
-  res.send('Hello Transports!');
-});
+// app.get('/', (req, res) => {
+//   res.send('Hello Transports!');
+// });
 
 module.exports = app;
 
