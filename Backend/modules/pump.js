@@ -1,4 +1,4 @@
-const pool = require('../core/config_db');
+const {pool} = require('../core/config_db');
 
 async function getPumpList() {
     try {
