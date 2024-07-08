@@ -8,8 +8,8 @@ router.get('/status', async (req, res) => {
     res.json(statuses);
   } catch (error) {
     console.error('Error getting statuses:', error);
-    res.status(500).json({ error: 'Error getting statuses' });
-  }
+    res.status(500).end;
+}
 });
 
 
@@ -20,7 +20,7 @@ router.post('/status', async (req, res) => {
         const newStatus = await statusModule.addStatus(description);
         res.status(201).json(newStatus);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).end;
     }
 });
 
@@ -29,7 +29,7 @@ router.put('/status/:id', async (req, res) => {
         const updatedStatus = await statusModule.updateStatus(req.params.id, req.body.description);
         res.status(200).json(updatedStatus);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).end;
     }
 });
 
@@ -38,7 +38,7 @@ router.delete('/status/:id', async (req, res) => {
         const deletedStatus = await statusModule.deleteStatus(req.params.id);
         res.status(200).json(deletedStatus);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).end;
     }
 });
 

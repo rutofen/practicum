@@ -1,4 +1,4 @@
-const {pool} = require('../core/config_db');
+const { pool } = require('../core/config_db');
 
 async function getPumpList() {
     try {
@@ -10,6 +10,8 @@ async function getPumpList() {
 }
 
 async function addPump(description) {
+    if (!description || typeof description !== 'string') 
+        throw new Error('Invalid description');
     try {
         const result = await pool.query('INSERT INTO pumps (description) VALUES ($1) RETURNING *', [description]);
         return result.rows[0];
@@ -19,6 +21,12 @@ async function addPump(description) {
 }
 
 async function updatePump(id, description) {
+    if (!id || isNaN(parseInt(id))) 
+        throw new Error('Invalid id');
+    
+    if (!description || typeof description !== 'string') 
+        throw new Error('Invalid description');
+    
     try {
         const result = await pool.query('UPDATE pumps SET description = $1 WHERE pump_id = $2 RETURNING *', [description, id]);
         return result.rows[0];
@@ -28,6 +36,8 @@ async function updatePump(id, description) {
 }
 
 async function deletePump(id) {
+    if (!id || isNaN(parseInt(id))) 
+        throw new Error('Invalid id');
     try {
         const result = await pool.query('DELETE FROM pumps WHERE pump_id = $1 RETURNING *', [id]);
         return result.rows;
