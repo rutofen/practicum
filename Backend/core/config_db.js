@@ -11,43 +11,47 @@ const pool = new Pool({
 })
 
 async function create_tracking_table() {
+
   const checkTableQuery = `
     SELECT EXISTS (
       SELECT 1
       FROM information_schema.tables
-      WHERE table_name = 'tracking'
+      WHERE table_schema = 'public'
+      AND table_name = 'tracking'
     );
-  `;
-  
+  `
+
   const createTableQuery = `
     CREATE TABLE tracking (
       Track_id SERIAL PRIMARY KEY,
       Location_lat DOUBLE PRECISION NOT NULL,
       Location_lng DOUBLE PRECISION NOT NULL,
       Time TIMESTAMP NOT NULL,
-      Transport_id INTEGER   
+      Transport_id INTEGER
     );
   `
+
   let client;
   try {
+
     client = await pool.connect()
     const result = await client.query(checkTableQuery)
-    const tableExists = result.rows[0].exists
-
+    const tableExists = result.rows[0].exists;
     if (!tableExists) {
       await client.query(createTableQuery)
-      console.log('Created tracking table successfully')
+      return 'Created tracking table successfully'
     } else {
-      console.log('Tracking table already exists')
+      return'Tracking table already exists'
     }
   } catch (err) {
-    console.error('Error checking/creating tracking table', err)
+    return 'Error checking/creating tracking table'
   } finally {
     if (client) {
       client.release()
     }
   }
 }
+
 module.exports = {
   pool,
   create_tracking_table,
