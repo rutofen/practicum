@@ -1,5 +1,6 @@
-const { Pool } = require('pg')
-const { db_name, db_user, db_pass, db_host, db_port } = require('../config')
+
+const { db_name, db_user, db_pass, db_host, db_port } = require('../config');
+const { Client, Pool } = require('pg');
 
 const pool = new Pool({
   user: db_user,
@@ -7,36 +8,26 @@ const pool = new Pool({
   host: db_host,
   port: db_port,
   database: db_name,
-  ssl: false
 });
 
-
-
-const create_transports_table = async () => {
+const createStatusTransportTable = async () => {
   const query = `
-      CREATE TABLE IF NOT EXISTS transport (
-         Id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-         Date DATE NOT NULL,
-         Location_address TEXT NOT NULL,
-         Location_lng FLOAT,
-         Count_order INTEGER,
-         Additional_quantity INTEGER,
-         Status_id INTEGER REFERENCES Status_transport(Transport_status_id),
-         Driver_id INTEGER REFERENCES Drivers(Id),
-         Pump_id INTEGER REFERENCES Pumps(Id),
-         Pipe_count INTEGER,
-         Transfers TEXT
-      );
+    CREATE TABLE IF NOT EXISTS statustransport (
+       transport_status_id SERIAL PRIMARY KEY,
+       status_id INTEGER REFERENCES status(status_id),
+       update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+       user_id INTEGER REFERENCES users(user_id)
+    );
   `;
   try {
     await pool.query(query);
-    console.log('Transport table created or already exists');
+    console.log('StatusTransport table created or already exists');
   } catch (error) {
-    console.error('Error checking/creating transport table', error);
+    console.error('Error checking/creating StatusTransport table', error);
   }
 };
 
 module.exports = {
   pool,
-  create_transports_table,
-}
+  createStatusTransportTable,
+};
