@@ -9,4 +9,26 @@ const pool = new Pool({
     port: db_port,
 });
 
-module.exports = pool;
+const createTableIfNotExists = async (tableName, columnsDefinition) => {
+  const query = `
+    CREATE TABLE IF NOT EXISTS ${tableName} (
+      ${columnsDefinition}
+    )
+  `;
+  try {
+    await pool.query(query);
+    console.log('Table created or already exists');
+  } catch (error) {
+
+    console.error('Error creating table:', error.message);
+
+    throw error;
+  }
+}
+
+module.exports = {
+  pool,
+  createTableIfNotExists
+};
+
+
