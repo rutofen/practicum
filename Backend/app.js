@@ -1,14 +1,23 @@
+
 const express = require('express');
 const bodyParser = require('body-parser');
+const pumpRouter = require('../Backend/routers/pump');
+const statusRouter = require('../Backend/routers/status');
+const {create_pumps_and_status_table} = require('./core/config_db');
 const transport_router = require('./routers/transport');
 
 const {create_transports_table} = require('./core/config_db');
-const app = express();
 create_transports_table();
+create_pumps_and_status_table()
+
 require('dotenv').config();
 
-app.use(bodyParser.json());
 
+
+const app = express();
+app.use(bodyParser.json());
+app.use('/api', pumpRouter);
+app.use('/api', statusRouter);
 app.use('/api', transport_router);
 
 app.get('/', (req, res) => {
