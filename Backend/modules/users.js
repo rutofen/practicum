@@ -67,7 +67,6 @@ const updateUser = async function (reqBody) {
     const { user_id, name, phone, email, password_information, driver_id } = reqBody;
     try {
         const userCheckRes = await pool.query('SELECT * FROM users WHERE user_id = $1', [user_id]);
-        console.log("????????????????");
         console.log(userCheckRes);
         if (userCheckRes.rowCount === 0) {
             throw new Error('User does not exist');
