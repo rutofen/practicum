@@ -3,16 +3,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const pumpRouter = require('../Backend/routers/pump');
 const statusRouter = require('../Backend/routers/status');
-const {create_pumps_and_status_table} = require('./core/config_db');
 const transport_router = require('./routers/transport');
 
-const {create_transports_table} = require('./core/config_db');
-create_transports_table();
-create_pumps_and_status_table()
+
+const { createTableIfNotExists } = require('./core/config_db');
+
+const tableName = 'users';
+const columnsDefinition = 'user_id SERIAL PRIMARY KEY, username TEXT';
+createTableIfNotExists(tableName, columnsDefinition);
 
 require('dotenv').config();
-
-
 
 const app = express();
 app.use(bodyParser.json());
