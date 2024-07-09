@@ -10,6 +10,36 @@ const pool = new Pool({
   database: db_name,
 });
 
+async function  create_pumps_and_status_table(){
+  const queryText = `
+    CREATE TABLE IF NOT EXISTS pumps (
+      pump_id SERIAL PRIMARY KEY,
+      pump_description TEXT
+    )
+  `;
+  const queryText2 = `
+    CREATE TABLE IF NOT EXISTS status (
+      pump_id SERIAL PRIMARY KEY,
+      pump_description TEXT
+    )
+  `;
+
+  try {
+    await pool.query(queryText);
+    await pool.query(queryText2);
+    console.log('Pumps and status table created successfully');
+  } catch (error) {
+    console.error('Error creating pumps or status table:', error.message);
+    throw error;
+  }
+}
+
+module.exports = {
+  pool,
+  create_pumps_and_status_table
+};
+
+
 const createStatusTransportTable = async () => {
   const query = `
     CREATE TABLE IF NOT EXISTS statustransport (
