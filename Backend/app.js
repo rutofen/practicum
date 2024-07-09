@@ -8,9 +8,9 @@ const transport_router = require('./routers/transport');
 
 const { createTableIfNotExists } = require('./core/config_db');
 
-const tableName = 'users';
-const columnsDefinition = 'user_id SERIAL PRIMARY KEY, username TEXT';
-createTableIfNotExists(tableName, columnsDefinition);
+createTableIfNotExists('status', 'status_id SERIAL PRIMARY KEY, description TEXT');
+createTableIfNotExists('pump', 'pump_id SERIAL PRIMARY KEY, description TEXT');
+
 
 require('dotenv').config();
 
