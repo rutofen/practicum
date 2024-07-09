@@ -21,9 +21,6 @@ async function addPump(description) {
 }
 
 async function updatePump(id, description) {
-    if (!id || isNaN(parseInt(id))) 
-        throw new Error('Invalid id');
-    
     if (!description || typeof description !== 'string') 
         throw new Error('Invalid description');
     
@@ -36,11 +33,23 @@ async function updatePump(id, description) {
 }
 
 async function deletePump(id) {
-    if (!id || isNaN(parseInt(id))) 
-        throw new Error('Invalid id');
+    
     try {
         const result = await pool.query('DELETE FROM pumps WHERE pump_id = $1 RETURNING *', [id]);
         return result.rows;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+async function isPumpIdExists(id) {
+    if (!id || isNaN(parseInt(id))) 
+        throw new Error('Invalid id');
+    
+    try {
+        const result = await pool.query('SELECT 1 FROM pumps WHERE pump_id = $1', [id]);
+        return result.rowCount > 0;
     } catch (error) {
         throw error;
     }
@@ -50,5 +59,6 @@ module.exports = {
     getPumpList,
     addPump,
     updatePump,
-    deletePump
+    deletePump,
+    isPumpIdExists
 };

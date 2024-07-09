@@ -20,9 +20,6 @@ async function addStatus(description) {
     }
 }
 async function updateStatus(id, description) {
-    if (!id || isNaN(parseInt(id)))
-        throw new Error('Invalid id');
-
     if (!description || typeof description !== 'string')
         throw new Error('Invalid description');
     try {
@@ -33,9 +30,6 @@ async function updateStatus(id, description) {
     }
 }
 async function deleteStatus(id) {
-    if (!id || isNaN(parseInt(id)))
-        throw new Error('Invalid id');
-
     try {
         const result = await pool.query('DELETE FROM status WHERE status_id = $1 RETURNING *', [id]);
         return result.rows;
@@ -44,10 +38,22 @@ async function deleteStatus(id) {
     }
 }
 
+async function isStatusIdExists(id) {
+    if (!id || isNaN(parseInt(id))) 
+        throw new Error('Invalid id');
+    
+    try {
+        const result = await pool.query('SELECT 1 FROM status WHERE status_id = $1', [id]);
+        return result.rowCount > 0;
+    } catch (error) {
+        throw error;
+    }
+}
 
 module.exports = {
     getStatusList,
     addStatus,
     updateStatus,
-    deleteStatus
+    deleteStatus,
+    isStatusIdExists
 };
