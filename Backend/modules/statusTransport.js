@@ -10,10 +10,10 @@ const createStatusTransport = async (status_id, user_id) => {
       VALUES ($1, CURRENT_TIMESTAMP, $2) 
       RETURNING *;
     `;
-    
+
     const values = [status_id, user_id];
     const res = await client.query(query, values);
-    
+
     console.log("after db query");
     console.log(res);
     return res.rows[0];
