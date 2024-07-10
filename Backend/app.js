@@ -1,28 +1,27 @@
-require('dotenv').config()
-const express = require('express')
-const app = express()
-const trackingRouter = require('./routers/tracking')
-const { create_tracking_table } = require('./core/config_db')
-
-app.use(express.json())
-create_tracking_table()
-
+require('dotenv').config();
 const express = require('express');
+const app = express();
+const trackingRouter = require('./routers/tracking');
+const routesRouter = require('./routers/routes');
 const bodyParser = require('body-parser');
 const pumpRouter = require('../Backend/routers/pump');
 const statusRouter = require('../Backend/routers/status');
 const transport_router = require('./routers/transport');
+const { create_tracking_table } = require('./core/config_db')
+
+create_tracking_table()
+
 
 const { createTableIfNotExists } = require('./core/config_db');
 
-createTableIfNotExists('status', 'status_id SERIAL PRIMARY KEY, description TEXT');
-createTableIfNotExists('pump', 'pump_id SERIAL PRIMARY KEY, description TEXT');
+createTableIfNotExists('routes', 'route_id SERIAL PRIMARY KEY, description TEXT');
 
-require('dotenv').config();
+app.use(express.json());
 
 app.use(bodyParser.json());
 app.use('/api', pumpRouter);
 app.use('/api', statusRouter);
+app.use('/api', routesRouter);
 app.use('/api', transport_router);
 app.use('/tracking', trackingRouter)
 
