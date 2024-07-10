@@ -10,7 +10,10 @@ const transport_router = require('./routers/transport');
 const { create_tracking_table } = require('./core/config_db')
 
 create_tracking_table()
+const { createTablesFromJson } = require('./core/Init_db');
+const jsonPath = '../Backend/data/db.json';
 
+createTablesFromJson(jsonPath);
 
 const { createTableIfNotExists } = require('./core/config_db');
 
