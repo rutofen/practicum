@@ -38,9 +38,7 @@ async function create_users_table() {
 
     if (!tableExists) {
       await client.query(createTableQuery);
-      console.log('Created users table successfully');
     } else {
-      console.log('Users table already exists');
     }
   } catch (err) {
     console.error('Error checking/creating users table', err);
@@ -60,7 +58,6 @@ const createTableIfNotExists = async (tableName, columnsDefinition) => {
   
   try {
     await pool.query(query);
-    console.log('Table created or already exists');
   } catch (error) {
     console.error('Error creating table:', error.message);
     throw error;
