@@ -1,13 +1,14 @@
-const { Pool } = require('pg')
-const { db_name, db_user, db_pass, db_host, db_port } = require('../config')
+const { Pool } = require('pg');
+const { db_name, db_user, db_pass, db_host, db_port } = require('../config');
 
 require('dotenv').config();
+
 const pool = new Pool({
-  user: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_NAME,
+  user: process.env.DB_USERNAME || db_user,
+  password: process.env.DB_PASSWORD || db_pass,
+  host: process.env.DB_HOST || db_host,
+  port: process.env.DB_PORT || db_port,
+  database: process.env.DB_NAME || db_name,
 });
 
 async function create_users_table() {
@@ -18,38 +19,56 @@ async function create_users_table() {
       WHERE table_name = 'users'
     );
   `;
-  
+
   const createTableQuery = `
-   CREATE TABLE users_DB (
-    user_id SERIAL PRIMARY KEY,
-    name VARCHAR(30) NOT NULL,
-    phone VARCHAR(10) NOT NULL,
-    email VARCHAR(30) NOT NULL,
-    password_information TEXT
-);
-  `
+    CREATE TABLE IF NOT EXISTS users (
+      user_id SERIAL PRIMARY KEY,
+      name VARCHAR(30) NOT NULL,
+      phone VARCHAR(10) NOT NULL,
+      email VARCHAR(30) NOT NULL,
+      password_information TEXT
+    );
+  `;
+
   let client;
   try {
-    client = await pool.connect()
-    const result = await client.query(checkTableQuery)
-    const tableExists = result.rows[0].exists
+    client = await pool.connect();
+    const result = await client.query(checkTableQuery);
+    const tableExists = result.rows[0].exists;
 
     if (!tableExists) {
-      await client.query(createTableQuery)
-      console.log('Created users table successfully')
+      await client.query(createTableQuery);
+      console.log('Created users table successfully');
     } else {
-      console.log('Users table already exists')
+      console.log('Users table already exists');
     }
   } catch (err) {
-    console.error('Error checking/creating users table', err)
+    console.error('Error checking/creating users table', err);
   } finally {
     if (client) {
-      client.release()
+      client.release();
     }
   }
 }
+
+const createTableIfNotExists = async (tableName, columnsDefinition) => {
+  const query = `
+    CREATE TABLE IF NOT EXISTS ${tableName} (
+      ${columnsDefinition}
+    );
+  `;
+  
+  try {
+    await pool.query(query);
+    console.log('Table created or already exists');
+  } catch (error) {
+    console.error('Error creating table:', error.message);
+    throw error;
+  }
+};
+
 module.exports = {
   pool,
-  create_users_table
-}
-
+  create_users_table,
+  createTableIfNotExists,
+};
