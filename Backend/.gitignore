@@ -2,3 +2,4 @@ tracking.test.js
 *.env
 ***/node_modules
 coverage/
+coverage/
