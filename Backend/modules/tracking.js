@@ -1,6 +1,9 @@
 const { pool } = require('../core/config_db')
 
 const createTracking = async (location_lat, location_lng, time, transport_id) => {
+    if (location_lat === undefined || location_lng === undefined || time === undefined || transport_id === undefined) {
+        throw new Error('One figure is missing')
+    }
     let client
     try {
         const query = `
@@ -48,6 +51,9 @@ const updateTracking = async (track_id, location_lat, location_lng, time, transp
         const values = [track_id, location_lat, location_lng, time, transport_id]
         client = await pool.connect()
         const res = await client.query(query, values)
+        if (res.rowCount === 0) {
+            throw new Error(`Tracking with track_id ${track_id} not found`);
+        }
         return res.rows[0]
     } catch (err) {
         console.error('Error updating tracking:', err.message)
@@ -68,7 +74,10 @@ const deleteTracking = async (track_id) => {
         RETURNING *`
         client = await pool.connect()
         const res = await client.query(query, [track_id])
-        return res.rows[0]
+        if (res.rowCount === 0) {
+            throw new Error(`Tracking with track_id ${track_id} not found`);
+        }
+        return
     } catch (err) {
         console.error('Error deleting tracking:', err.message)
         throw err
@@ -78,7 +87,6 @@ const deleteTracking = async (track_id) => {
         }
     }
 }
-
 module.exports = {
     createTracking,
     getAllTracking,

@@ -41,7 +41,7 @@ async function create_tracking_table() {
       await client.query(createTableQuery)
       return 'Created tracking table successfully'
     } else {
-      return'Tracking table already exists'
+      return 'Tracking table already exists'
     }
   } catch (err) {
     return 'Error checking/creating tracking table'
