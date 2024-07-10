@@ -5,7 +5,9 @@ const userRouter = require('./routers/usersRoutes');
 const app = express();
 const pumpRouter = require('./routers/pump');
 const statusRouter = require('./routers/status');
-const transport_router = require('./routers/statusTransport');
+const statusTransport = require('./routers/statusTransport');
+const TransportRouter = require('./routers/transport');
+
 require('dotenv').config();
 
 
@@ -22,9 +24,8 @@ create_users_table();
 
 app.use('/api', pumpRouter);
 app.use('/api', statusRouter);
-app.use('/api', transport_router);
-
-
+app.use('/api', statusTransport);
+app.use('/api', TransportRouter);
 app.use('/api', userRouter);
 app.get('/', (req, res) => {
   res.send('Hello Transports!');
