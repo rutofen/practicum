@@ -49,10 +49,30 @@ async function create_tracking_table() {
     if (client) {
       client.release()
     }
+}}
+
+const createTableIfNotExists = async (tableName, columnsDefinition) => {
+  const query = `
+    CREATE TABLE IF NOT EXISTS ${tableName} (
+      ${columnsDefinition}
+    )
+  `;
+  try {
+    await pool.query(query);
+    console.log('Table created or already exists');
+  } catch (error) {
+
+    console.error('Error creating table:', error.message);
+
+    throw error;
   }
 }
 
 module.exports = {
   pool,
   create_tracking_table,
+  createTableIfNotExists
 }
+
+
+

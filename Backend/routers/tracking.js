@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     }
     catch (err) {
         console.error('Error getting tracking:', err.message)
-        res.status(500).json({ message: err.message })
+        res.status(500).end()
     }
 })
 
@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
     }
     catch (err) {
         console.error('Error creating tracking:', err.message)
-        res.status(500).json({ message: err.message })
+        res.status(500).end()
     }
 })
 
@@ -30,11 +30,10 @@ router.put('/:track_id', async (req, res) => {
     const track_id = req.params.track_id
     try {
         const updateTracking = await trackingModule.updateTracking(track_id, location_lat, location_lng, time)
-        return res.json(updateTracking)
     }
     catch (err) {
         console.error('Error updating tracking:', err.message)
-        res.status(500).json({ error: err.message })
+        res.status(500).end()
     }
 })
 
@@ -42,11 +41,10 @@ router.delete('/:track_id', async (req, res) => {
     const track_id = req.params.track_id
     try {
         const deleteTracking = await trackingModule.deleteTracking(track_id)
-        res.json("tracking deleted succesfuly")
     }
     catch (err) {
         console.error('Error deleting tracking:', err.message)
-        res.status(500).json({ error: err.message })
+        res.status(500).end()
     }
 })
 
