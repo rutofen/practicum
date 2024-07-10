@@ -1,14 +1,14 @@
-// const { Pool } = require('pg');
+const { Pool } = require('pg');
 
-// const pool = new Pool({
-//   user: 'postgres',
-//   host: 'localhost',
-//   database: 'transport-management',
-//   password: 'esti',
-//   port: 5432,
-// });
+const poolusers = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'transport-management',
+  password: 'esti',
+  port: 5432,
+});
 
-// module.exports = { pool };
+module.exports = { pool };
 
 const { Pool } = require('pg');
 
@@ -102,22 +102,22 @@ const createTableIfNotExists = async (tableName, columnsDefinition) => {
     }
   } catch (err) {
     console.error('Error checking/creating driver table', err);
-  } finally {
+    console.error('Error creating table:', error.message);
+
+    throw error;
+  } 
+
+  finally {
     if (client) {
       client.release();
     }
     await pool.query(query);
     console.log('Table created or already exists');
-  // } catch (error) {
-
-    console.error('Error creating table:', error.message);
-
-    throw error;
   }
 }
-
 module.exports = {
   pool,
+  poolusers,
   create_tracking_table,
 };
   createTableIfNotExists

@@ -1,12 +1,12 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { pool } = require('../core/config_db');
+const { poolusers } = require('../core/config_db');
 
 const registerUser = async (req, res) => {
   const { name, phone, email, password, driverId } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    await pool.query(
+    await poolusers.query(
       `INSERT INTO users (name, phone, email, "Password-information", "Driver-id") VALUES ($1, $2, $3, $4, $5)`,
       [name, phone, email, hashedPassword, driverId]
     );
@@ -19,7 +19,7 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const userResult = await pool.query(
+    const userResult = await poolusers.query(
       `SELECT * FROM users WHERE email = $1`,
       [email]
     );
