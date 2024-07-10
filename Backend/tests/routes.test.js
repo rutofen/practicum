@@ -10,10 +10,12 @@ describe('Routes API', () => {
         const response = await request(app)
             .post('/api/create')
             .send({
-                departureLocation: 'Location B',
-                destinationLocation: 'Location C',
+                departureLocation: 'Location A',
+                destinationLocation: 'Location B',
                 departureTime: '2024-07-05T08:00:00Z',
-                arrivalTime: '2024-07-05T10:00:00Z'
+                arrivalTime: '2024-07-05T10:00:00Z',
+                trackId: 4,
+                transportId: 8
             });
 
         expect(response.statusCode).toBe(201);
@@ -30,8 +32,8 @@ describe('Routes API', () => {
                 destinationLocation: 'Location D',
                 departureTime: '2024-07-05T08:00:00Z',
                 arrivalTime: '2024-07-05T10:00:00Z',
-                transportId: 1,
-                
+                trackId: 1,
+                transportId: 2
             });
 
         expect(response.statusCode).toBe(200);
@@ -119,7 +121,6 @@ describe('Negative tests', () => {
                 .get('/api/list');
     
             expect(response.statusCode).toBe(500);
-            // expect(response.body).toEqual([]); // assuming there are no routes, it should return an empty array
         } catch (error) {
             console.error('Test failed:', error);
         }
