@@ -4,7 +4,3 @@
 Backend/.gitignore
 ***/coverage
 coverage/
-=======
-coverage/
-coverage/
->>>>>>> 23eb62ef7d2c1a68d826609716168c059381e131
