@@ -1,31 +1,17 @@
-import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import StatusButton from '../src/components/status/StatusButton';
-import StatusForm from '../src/components/status/StatusForm';
 
-export default function App() {
-  const [isFormVisible, setIsFormVisible] = useState(false);
+import { StyleSheet, Text, View } from "react-native";
+import MyTableComponent from '../src/components/MyTableComponent';
 
-  const handleAddNewStatus = () => {
-    setIsFormVisible(true);
-  };
 
-  const handleSubmit = (status: { description: string }) => {
-    console.log('New Status:', status);
-    setIsFormVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsFormVisible(false);
-  };
-
+export default function Page() {
   return (
     <View style={styles.container}>
-      {isFormVisible ? (
-        <StatusForm onSubmit={handleSubmit} onCancel={handleCancel} />
-      ) : (
-        <StatusButton onPress={handleAddNewStatus} />
-      )}
+      <View style={styles.main}>
+        <Text style={styles.title}>Hello World</Text>
+        <Text style={styles.subtitle}>This is the first page of your app.</Text>
+        <MyTableComponent />
+
+      </View>
     </View>
   );
 }
@@ -33,7 +19,23 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: "center",
+    padding: 24,
+  },
+  main: {
+    flex: 1,
+    justifyContent: "center",
+    maxWidth: 960,
+    marginHorizontal: "auto",
+  },
+  title: {
+    fontSize: 64,
+    fontWeight: "bold",
+  },
+  subtitle: {
+    fontSize: 36,
+    color: "#38434D",
   },
 });
+
+
