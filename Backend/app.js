@@ -4,13 +4,16 @@ const app = express();
 const trackingRouter = require('./routers/tracking');
 const routesRouter = require('./routers/routes');
 const bodyParser = require('body-parser');
-const pumpRouter = require('../Backend/routers/pump');
-const statusRouter = require('../Backend/routers/status');
+const pumpRouter = require('./routers/pump');
+const statusRouter = require('./routers/status');
+const {create_pumps_and_status_table} = require('./core/config_db');
 const transport_router = require('./routers/transport');
 const { create_tracking_table } = require('./core/config_db')
 
 create_tracking_table()
+const { createTablesFromJson } = require('./core/Init_db');
 
+createTablesFromJson();
 
 const { createTableIfNotExists } = require('./core/config_db');
 

@@ -1,0 +1,10 @@
+[
+    {
+        "tableName": "status",
+        "columnsDefinition": " status_id SERIAL PRIMARY KEY, description TEXT"
+    },
+    {
+        "tableName": "pump",
+        "columnsDefinition": " pump_id SERIAL PRIMARY KEY, description TEXT"
+    }
+]
