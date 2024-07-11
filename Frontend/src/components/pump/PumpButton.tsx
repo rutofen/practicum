@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import PumpForm from '../components/pump/pumpForm';
+import PumpForm from './pumpForm';
 
-export default function PumpScreen() {
+const PumpButton: React.FC = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const handleNewPump = () => {
@@ -11,9 +11,9 @@ export default function PumpScreen() {
 
   return (
     <View style={styles.container}>
-      <Text>עמוד משאבה</Text>
+      <Text>Pump page</Text>
       <Button
-        title="משאבה חדשה"
+        title="New pump"
         onPress={handleNewPump}
       />
       <PumpForm
@@ -32,3 +32,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+export default PumpButton;

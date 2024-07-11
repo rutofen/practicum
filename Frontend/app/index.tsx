@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import PumpScreen from "../src/screens/PumpScreen";
+import Pump from "../src/pages/pump";
 
 export default function Page() {
   return (
@@ -8,7 +8,7 @@ export default function Page() {
         <Text style={styles.title}>Hello World</Text>
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
       </View>
-    <PumpScreen/>
+    <Pump/>
     </View>
   );
 }
