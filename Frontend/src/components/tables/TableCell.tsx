@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
     textAlign: 'center',
     flex: 1,
-    minWidth: 150, 
+    minWidth: 150,
   },
 });
 
