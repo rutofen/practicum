@@ -1,6 +1,5 @@
 const { Pool } = require('pg');
 const { db_name, db_user, db_pass, db_host, db_port } = require('../config');
-
 require('dotenv').config();
 
 const pool = new Pool({
