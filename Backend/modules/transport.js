@@ -104,5 +104,3 @@ module.exports = {
     deleteTransport,
     getTransports
 };
-
-
