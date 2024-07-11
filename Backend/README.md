@@ -10,7 +10,7 @@
 
 1. **Clone the repository from GitHub:**
 
-   - [git clone] (<https://github.com/ptr-10/)Transport-management.git>>
+   - [git clone] (<https://github.com/ptr-10/Transport-management.git>)
    - *cd Transport-management
 2. **Build Docker images:**
 
