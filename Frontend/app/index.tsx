@@ -1,4 +1,3 @@
-
 import { StyleSheet, Text, View } from "react-native";
 import {Tab} from "../src/components/tab";
 import MyTableComponent from '../src/components/MyTableComponent';
@@ -10,8 +9,8 @@ export default function Page() {
         <Tab color="red"/>
         <Text style={styles.title}>Hello World</Text>
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
-        <MyTableComponent />
 
+        <MyTableComponent />
       </View>
     </View>
   );
@@ -38,5 +37,3 @@ const styles = StyleSheet.create({
     color: "#38434D",
   },
 });
-
-
