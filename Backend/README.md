@@ -32,7 +32,7 @@ docker-compose up -d
 *For development*
 
 ```bash
-docker-compose up -d
+docker-compose up
 ```
 
 4. And the application runs!
