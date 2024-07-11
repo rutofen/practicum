@@ -1,4 +1,6 @@
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import NewUserForm from '../src/components/user-form';
 
 export default function Page() {
   return (
