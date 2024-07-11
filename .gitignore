@@ -15,3 +15,15 @@ Thumbs.db
 *.env
 ***/node_modules
 coverage
+***/.expo
+***/.env
+***//vscode
+*/node_modules
+/node_modules
+/.idea
+
+
+*.env
+***/node_modules
+coverage
+

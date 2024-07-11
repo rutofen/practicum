@@ -12,5 +12,9 @@ dist
 .DS_Store
 Thumbs.db
 *.env
-***/node_modules
 coverage/
+node_modules
+.env
+*.env
+***/node_modules
+

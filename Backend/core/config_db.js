@@ -1,6 +1,6 @@
-
+const { Pool } = require('pg');
 const { db_name, db_user, db_pass, db_host, db_port } = require('../config');
-const { Client, Pool } = require('pg');
+
 
 const pool = new Pool({
   user: db_user,
@@ -8,56 +8,68 @@ const pool = new Pool({
   host: db_host,
   port: db_port,
   database: db_name,
-});
+  ssl: false
+})
 
-async function  create_pumps_and_status_table(){
-  const queryText = `
-    CREATE TABLE IF NOT EXISTS pumps (
-      pump_id SERIAL PRIMARY KEY,
-      pump_description TEXT
-    )
-  `;
-  const queryText2 = `
-    CREATE TABLE IF NOT EXISTS status (
-      pump_id SERIAL PRIMARY KEY,
-      pump_description TEXT
-    )
-  `;
+async function create_tracking_table() {
 
+  const checkTableQuery = `
+    SELECT EXISTS (
+      SELECT 1
+      FROM information_schema.tables
+      WHERE table_schema = 'public'
+      AND table_name = 'tracking'
+    );
+  `
+
+  const createTableQuery = `
+    CREATE TABLE tracking (
+      Track_id SERIAL PRIMARY KEY,
+      Location_lat DOUBLE PRECISION NOT NULL,
+      Location_lng DOUBLE PRECISION NOT NULL,
+      Time TIMESTAMP NOT NULL,
+      Transport_id INTEGER
+    );
+  `
+
+  let client;
   try {
-    await pool.query(queryText);
-    await pool.query(queryText2);
-    console.log('Pumps and status table created successfully');
+
+    client = await pool.connect()
+    const result = await client.query(checkTableQuery)
+    const tableExists = result.rows[0].exists;
+    if (!tableExists) {
+      await client.query(createTableQuery)
+      return 'Created tracking table successfully'
+    } else {
+      return 'Tracking table already exists'
+    }
+  } catch (err) {
+    return 'Error checking/creating tracking table'
+  } finally {
+    if (client) {
+      client.release()
+    }
+}}
+
+const createTableIfNotExists = async (tableName, columnsDefinition) => {
+  const query = `
+    CREATE TABLE IF NOT EXISTS ${tableName} (
+      ${columnsDefinition}
+    )
+  `;
+  try {
+    await pool.query(query);
   } catch (error) {
-    console.error('Error creating pumps or status table:', error.message);
     throw error;
   }
 }
 
 module.exports = {
   pool,
-  create_pumps_and_status_table
-};
+  create_tracking_table,
+  createTableIfNotExists
+}
 
 
-const createStatusTransportTable = async () => {
-  const query = `
-    CREATE TABLE IF NOT EXISTS statustransport (
-       transport_status_id SERIAL PRIMARY KEY,
-       status_id INTEGER REFERENCES status(status_id),
-       update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-       user_id INTEGER REFERENCES users(user_id)
-    );
-  `;
-  try {
-    await pool.query(query);
-    console.log('StatusTransport table created or already exists');
-  } catch (error) {
-    console.error('Error checking/creating StatusTransport table', error);
-  }
-};
 
-module.exports = {
-  pool,
-  createStatusTransportTable,
-};
