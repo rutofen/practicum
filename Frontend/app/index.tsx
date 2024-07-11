@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import NewUserForm from '../src/components/user-form';
+import UserButton from '../src/components/user-button'
 
 export default function Page() {
   return (
@@ -9,6 +9,7 @@ export default function Page() {
         <Text style={styles.title}>Hello World</Text>
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
       </View>
+      <UserButton />
     </View>
   );
 }
