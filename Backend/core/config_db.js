@@ -1,4 +1,6 @@
 const { Pool } = require('pg');
+const { db_name, db_user, db_pass, db_host, db_port } = require('../config');
+require('dotenv').config();
 
 module.exports = { pool };
 
@@ -15,62 +17,63 @@ const pool  = new Pool({
 
 async function create_tracking_table() {
 const pool = new Pool({
-  user: db_user,
-  password: db_pass,
-  host: db_host,
-  port: db_port,
-  database: db_name,
-  ssl: false
-})
+  user: process.env.DB_USERNAME || db_user,
+  password: process.env.DB_PASSWORD || db_pass,
+  host: process.env.DB_HOST || db_host,
+  port: process.env.DB_PORT || db_port,
+  database: process.env.DB_NAME || db_name,
+});
 
-async function create_tracking_table() {
-
+async function create_users_table() {
   const checkTableQuery = `
     SELECT EXISTS (
       SELECT 1
       FROM information_schema.tables
+<<<<<<< HEAD
       WHERE table_name = 'driver'
     );
       WHERE table_schema = 'public'
       AND table_name = 'tracking'
+=======
+      WHERE table_name = 'users'
+>>>>>>> 72835cb1cf56911b842c69a4b8705aa751ee0892
     );
-  `
+  `;
 
   const createTableQuery = `
-    CREATE TABLE tracking (
-      Track_id SERIAL PRIMARY KEY,
-      Location_lat DOUBLE PRECISION NOT NULL,
-      Location_lng DOUBLE PRECISION NOT NULL,
-      Time TIMESTAMP NOT NULL,
-      Transport_id INTEGER
+    CREATE TABLE IF NOT EXISTS users (
+      user_id SERIAL PRIMARY KEY,
+      name VARCHAR(30) NOT NULL,
+      phone VARCHAR(10) NOT NULL,
+      email VARCHAR(30) NOT NULL,
+      password_information TEXT
     );
-  `
+  `;
 
   let client;
   try {
-
-    client = await pool.connect()
-    const result = await client.query(checkTableQuery)
+    client = await pool.connect();
+    const result = await client.query(checkTableQuery);
     const tableExists = result.rows[0].exists;
+
     if (!tableExists) {
-      await client.query(createTableQuery)
-      return 'Created tracking table successfully'
+      await client.query(createTableQuery);
     } else {
-      return 'Tracking table already exists'
     }
   } catch (err) {
-    return 'Error checking/creating tracking table'
+    console.error('Error checking/creating users table', err);
   } finally {
     if (client) {
-      client.release()
+      client.release();
     }
-}}
+  }
+}
 
 const createTableIfNotExists = async (tableName, columnsDefinition) => {
   const query = `
     CREATE TABLE IF NOT EXISTS ${tableName} (
       ${columnsDefinition}
-    )
+    );
   `;
 
   const createTableQuery = `
@@ -94,8 +97,11 @@ const createTableIfNotExists = async (tableName, columnsDefinition) => {
     }
   } catch (err) {
     console.error('Error checking/creating driver table', err);
+  
+  try {
+    await pool.query(query);
+  } catch (error) {
     console.error('Error creating table:', error.message);
-
     throw error;
   } 
 
@@ -115,3 +121,10 @@ module.exports = {
   createTableIfNotExists
 }
 
+};
+
+module.exports = {
+  pool,
+  create_users_table,
+  createTableIfNotExists,
+};
