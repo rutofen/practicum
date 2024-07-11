@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import Status from '../src/components/status/status';
+import Status from '../src/pages/status';
 
 
 export default function Page() {

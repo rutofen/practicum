@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import StatusButton from './StatusButton';
-import StatusForm from './StatusForm';
+import StatusButton from '../components/status/StatusButton';
+import StatusForm from '../components/status/StatusForm';
 
 const status: React.FC = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
