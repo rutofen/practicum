@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
-
+import {Tab} from "../src/components/tab";
 export default function Page() {
   return (
     <View style={styles.container}>
       <View style={styles.main}>
+        <Tab color="#800080"/>
         <Text style={styles.title}>Hello World</Text>
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
       </View>
