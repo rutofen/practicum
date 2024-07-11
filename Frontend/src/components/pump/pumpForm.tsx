@@ -1,60 +1,48 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Modal, TextInput, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Modal, TextInput, Pressable } from 'react-native';
 
-export default function App() {
-  const [modalVisible, setModalVisible] = useState(false);
+
+interface PumpFormProps {
+  visible: boolean;
+  onClose: () => void;
+}
+
+export default function PumpForm({ visible, onClose }: PumpFormProps) {
   const [description, setDescription] = useState('');
 
-  const handleNewResource = () => {
-    setModalVisible(true);
-  };
-
   const handleSubmit = () => {
-    setModalVisible(false);
+    onClose();
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Welcome to my app!</Text>
-      <Button title="new pump" onPress={handleNewResource} />
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(false);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Add new pump description</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Description of the pump" 
-              onChangeText={setDescription}
-              value={description}
-            />
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={handleSubmit}
-            >
-              <Text style={styles.textStyle}>sava</Text>
-            </Pressable>
-          </View>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={visible}
+      onRequestClose={onClose}
+    >
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Text style={styles.modalText}>Add new pump description</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Description of the pump"
+            onChangeText={setDescription}
+            value={description}
+          />
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={handleSubmit}
+          >
+            <Text style={styles.textStyle}>Sava</Text>
+          </Pressable>
         </View>
-      </Modal>
-    </View>
+      </View>
+    </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
@@ -80,9 +68,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
   },
   buttonClose: {
     backgroundColor: '#2196F3',
