@@ -7,4 +7,24 @@
 *.env
 ***/node_modules
 coverage
+logs
+*.log
+pids
+*.pid
+*.seed
+*.pid.lock
+dist
+.env
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+
+
+
+
+
+
+
 
