@@ -11,9 +11,8 @@ const { create_tracking_table } = require('./core/config_db')
 
 create_tracking_table()
 const { createTablesFromJson } = require('./core/Init_db');
-const jsonPath = '../Backend/data/db.json';
 
-createTablesFromJson(jsonPath);
+createTablesFromJson();
 
 const { createTableIfNotExists } = require('./core/config_db');
 
