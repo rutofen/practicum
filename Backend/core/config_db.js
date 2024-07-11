@@ -60,11 +60,7 @@ const createTableIfNotExists = async (tableName, columnsDefinition) => {
   `;
   try {
     await pool.query(query);
-    console.log('Table created or already exists');
   } catch (error) {
-
-    console.error('Error creating table:', error.message);
-
     throw error;
   }
 }

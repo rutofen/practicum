@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import Status from '../src/pages/status';
+import MyTableComponent from '../src/components/MyTableComponent';
 
 
 export default function Page() {
@@ -10,7 +11,9 @@ export default function Page() {
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
       </View>
       <Status />
-    </View>
+        <MyTableComponent />
+
+      </View>
   );
 }
 
@@ -35,4 +38,5 @@ const styles = StyleSheet.create({
     color: "#38434D",
   },
 });
+
 
