@@ -29,6 +29,7 @@ router.get('/getTransport/:id', async (req, res) => {
 router.get('/getTransports', async (req, res) => {
     try {
         const transports = await transports_modules.getTransports();
+        console.log("tryyyy");
         res.json(transports);
     } catch (err) {
         console.error('Error fetching transports', err);
@@ -36,6 +37,16 @@ router.get('/getTransports', async (req, res) => {
     }
 });
 
+
+router.get('/getTransportsForToday', async (req, res) => {
+    try {
+        const transports = await transports_modules.getTransportsForToday()
+        res.json(transports)
+    } catch (err) {
+        console.error('Error fetching transports', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
 
 router.put('/updateTransport/:id', async (req, res) => {
     try {
