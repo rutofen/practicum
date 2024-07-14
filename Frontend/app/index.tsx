@@ -7,6 +7,7 @@ import Pump from "../src/pages/pump";
 import User from '../src/pages/user'
 import { Tab } from "../src/components/tab";
 import MyTableComponent from '../src/components/MyTableComponent';
+import   Dropdown, {} from '../src/components/Dropdown';
 
 export default function Page() {
   return (
@@ -18,7 +19,7 @@ export default function Page() {
         <Status />
         <User />
         <MyTableComponent />
-
+        <Dropdown/>
         <Pump />
       </View>
     </View>
