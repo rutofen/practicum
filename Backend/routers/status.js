@@ -14,8 +14,8 @@ router.get('/status', async (req, res) => {
 
 router.post('/status', async (req, res) => {
     try {
-        const { description } = req.body;
-        const newStatus = await statusModule.addStatus(description);
+        const { description, color } = req.body; 
+        const newStatus = await statusModule.addStatus(description, color);
         res.status(201).json(newStatus);
     } catch (error) {
         console.error('Error adding status:', error);
@@ -31,8 +31,8 @@ router.put('/status/:id', async (req, res) => {
             return;
         }
 
-        const description = req.body.description;
-        const updatedStatus = await statusModule.updateStatus(id, description);
+        const { description, color } = req.body;   
+        const updatedStatus = await statusModule.updateStatus(id, description, color);  
         res.status(200).json(updatedStatus);
     } catch (error) {
         console.error('Error updating status:', error);
