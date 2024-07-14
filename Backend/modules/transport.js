@@ -5,7 +5,7 @@ const createTransport = async (transport) => {
     try {
         client = await pool.connect();
         const query = `
-            INSERT INTO Transport (date, location_address, location_lat, location_lng, count_order, additional_quantity, status, driver_id, pump_id, pipe_count, transfers)
+            INSERT INTO "Transport" (date, location_address, location_lat, location_lng, count_order, additional_quantity, status, driver_id, pump_id, pipe_count, transfers)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
             RETURNING *`;
         const values = [transport.date, transport.location_address, transport.location_lat, transport.location_lng, transport.count_order, transport.additional_quantity, transport.status, transport.driver_id, transport.pump_id, transport.pipe_count, transport.transfers]
@@ -26,7 +26,7 @@ const getTransportById = async (id) => {
     let client;
     try {
         client = await pool.connect();
-        const query = 'SELECT * FROM Transport WHERE id = $1';
+        const query = 'SELECT * FROM "Transport" WHERE id = $1';
         const res = await client.query(query, [id]);
         return res.rows[0];
     } catch (error) {
@@ -44,8 +44,13 @@ const getTransports = async () => {
     let client;
     try {
         client = await pool.connect();
-        const query = 'SELECT * FROM Transport';
+        console.log("Connected to database");
+        console.log("before select----");
+        const query = 'SELECT * FROM "Transport"';
+        console.log("Executing query", query);
+        // console.log("try2222222222222222");
         const res = await client.query(query);
+        console.log("Query executed successfully");
         return res.rows;
     } catch (error) {
         console.error('Error executing query', error);
@@ -63,7 +68,7 @@ const updateTransport = async (id, transport) => {
     try {
         client = await pool.connect();
         const query = `
-            UPDATE Transport
+            UPDATE "Transport"
             SET date = $1, location_address = $2, location_lat = $3, location_lng = $4, count_order = $5, additional_quantity = $6, status = $7, driver_id = $8, pump_id = $9, pipe_count = $10, transfers = $11
             WHERE id = $12
             RETURNING *`;
@@ -85,7 +90,7 @@ const deleteTransport = async (id) => {
     let client;
     try {
         client = await pool.connect();
-        const query = 'DELETE FROM Transport WHERE id = $1 RETURNING *';
+        const query = 'DELETE FROM "Transport" WHERE id = $1 RETURNING *';
         const res = await client.query(query, [id]);
         return res.rows[0];
     } catch (err) {
@@ -96,11 +101,31 @@ const deleteTransport = async (id) => {
         }
     }
 };
+const getTransportsForToday = async () => {
+    let client;
+    try {
+        client = await pool.connect();
+        const today = new Date().toISOString().split('T')[0];
+        const query = 'SELECT * FROM "Transport" WHERE date = $1';
+        const res = await client.query(query, [today]);
+        return res.rows;
+    }
+    catch (error) {
+        console.error('Error executing query', error);
+        throw error;
+    }
+    finally {
+        if (client) {
+            client.release();
+        }
+    }
+}
 
 module.exports = {
     createTransport,
     getTransportById,
     updateTransport,
     deleteTransport,
-    getTransports
+    getTransports,
+    getTransportsForToday
 };
