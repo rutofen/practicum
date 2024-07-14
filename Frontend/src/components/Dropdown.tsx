@@ -7,20 +7,12 @@ interface Option {
   name: string;
 }
 
-const defStatuses: Option[] = [
-  { id: 1, name: 'Pending' },
-  { id: 2, name: 'Progress' },
-  { id: 3, name: 'Completed' },
-  { id: 4, name: 'Failed' },
-  { id: 5, name: 'Suspended' },
-];
-
 interface DropdownProps {
   statuses?: Option[];
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ statuses }) => {
-  const [options, setOptions] = useState<Option[]>(statuses || defStatuses);
+  const [options, setOptions] = useState<Option[]>(statuses || []);
 
   useEffect(() => {
     if (statuses && statuses.length > 0) {
