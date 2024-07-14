@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const trackingModule = require('../modules/tracking')
 
-router.get('/', async (req, res) => {
+router.get('/getTracking', async (req, res) => {
     try {
         const allTracking = await trackingModule.getAllTracking()
         res.json(allTracking)
@@ -12,6 +12,27 @@ router.get('/', async (req, res) => {
         res.status(500).end()
     }
 })
+
+
+
+
+
+
+//new
+router.get('/getTrackingsForToday', async (req, res) => {
+    try {
+        const transports = await trackingModule.getTrackingsForToday()
+        res.json(transports)
+    } catch (err) {
+        console.error('Error fetching transports', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
+
+
+
+
+
 
 router.post('/', async (req, res) => {
     const { location_lat, location_lng, time, transport_id } = req.body
