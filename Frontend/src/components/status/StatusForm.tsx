@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import { Button, StyleSheet, TextInput, View } from 'react-native';
 
 type Props = {
-  onSubmit: (status: { description: string }) => void;
+  onSubmit: (status: { description: string, color: string }) => void;
   onCancel: () => void;
 };
 
 const StatusForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
   const [description, setDescription] = useState('');
+  const [color, setColor] = useState('');
 
   const handleSubmit = () => {
-    onSubmit({ description });
+    onSubmit({ description, color });
     setDescription('');
+    setColor('');
   };
 
   return (
@@ -22,6 +24,13 @@ const StatusForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
         value={description}
         onChangeText={setDescription}
       />
+      <TextInput
+        style={styles.input}
+        placeholder="Color"
+        value={color}
+        onChangeText={setColor}
+      />
+      
       <Button title="Save" onPress={handleSubmit} />
       <View style={styles.separator} />
       <Button title="Cancel" onPress={onCancel} />

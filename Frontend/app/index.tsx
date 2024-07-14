@@ -1,5 +1,9 @@
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Status from '../src/pages/status';
+import Pump from "../src/pages/pump";
+
+import User from '../src/pages/user'
 import {Tab} from "../src/components/tab";
 import MyTableComponent from '../src/components/MyTableComponent';
 
@@ -11,11 +15,12 @@ export default function Page() {
         <Text style={styles.title}>Hello World</Text>
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
         <Status />
+      <User />
         <MyTableComponent />
 
-      </View>
+    <Pump/>
     </View>
-    
+    </View>
 
   );
 }
