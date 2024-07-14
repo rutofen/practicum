@@ -14,11 +14,6 @@ router.get('/getTracking', async (req, res) => {
 })
 
 
-
-
-
-
-//new
 router.get('/getTrackingsForToday', async (req, res) => {
     try {
         const transports = await trackingModule.getTrackingsForToday()
@@ -28,11 +23,6 @@ router.get('/getTrackingsForToday', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 })
-
-
-
-
-
 
 router.post('/', async (req, res) => {
     const { location_lat, location_lng, time, transport_id } = req.body
