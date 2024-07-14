@@ -1,5 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import Pump from "../src/pages/pump";
+
 import User from '../src/pages/user'
 import {Tab} from "../src/components/tab";
 import MyTableComponent from '../src/components/MyTableComponent';
@@ -16,6 +18,7 @@ export default function Page() {
 
         <MyTableComponent />
       </View>
+    <Pump/>
     </View>
   );
 }

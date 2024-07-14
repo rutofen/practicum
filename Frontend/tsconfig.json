@@ -17,6 +17,7 @@
     "isolatedModules": true,
     "jsx": "react"
   },
+  "extends": "expo/tsconfig.base",
   "include": [
     "src",
     ".expo/types/**/*.ts",
