@@ -6,7 +6,6 @@ const routesRouter = require('./routers/routes');
 const bodyParser = require('body-parser');
 const pumpRouter = require('./routers/pump');
 const statusRouter = require('./routers/status');
-const searchesRouter = require('./routers/searches');
 const { create_tracking_table } = require('./core/config_db');
 const { createTableIfNotExists } = require('./core/config_db');
 
@@ -19,7 +18,6 @@ app.use(bodyParser.json());
 app.use('/api', pumpRouter);
 app.use('/api', statusRouter);
 app.use('/api', routesRouter);
-app.use('/api', searchesRouter); 
 app.use('/tracking', trackingRouter);
 
 app.get('/', (req, res) => {

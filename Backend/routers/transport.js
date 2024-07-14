@@ -3,6 +3,25 @@ const router = express.Router();
 const transports_modules = require('../modules/transport');
 require('dotenv').config();
 
+
+router.get('/open', async (req, res) => {
+    try {
+        const openTransports = await searchesModule.getOpenTransports();
+        res.json(openTransports);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+router.get('/done', async (req, res) => {
+    try {
+        const doneTransports = await searchesModule.getDoneTransports();
+        res.json(doneTransports);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
 router.post('/addTransport', async (req, res) => {
     try {
         const transport = await transports_modules.createTransport(req.body);
