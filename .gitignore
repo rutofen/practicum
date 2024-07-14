@@ -1,4 +1,12 @@
-
+***/.expo
+***/.env
+***//vscode
+*/node_modules
+/node_modules
+/.idea
+*.env
+***/node_modules
+coverage
 logs
 *.log
 pids
@@ -6,24 +14,17 @@ pids
 *.seed
 *.pid.lock
 dist
-node_modules/
 .env
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
-*.env
-***/node_modules
-coverage
-***/.expo
-***/.env
-***//vscode
-*/node_modules
-/node_modules
-/.idea
 
 
-*.env
-***/node_modules
-coverage
+
+
+
+
+
+
 

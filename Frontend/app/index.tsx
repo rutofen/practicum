@@ -1,8 +1,11 @@
 
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import Pump from "../src/pages/pump";
+
+import User from '../src/pages/user'
 import {Tab} from "../src/components/tab";
 import MyTableComponent from '../src/components/MyTableComponent';
-import React from "react";
 
 export default function Page() {
   return (
@@ -11,9 +14,10 @@ export default function Page() {
         <Tab color="red"/>
         <Text style={styles.title}>Hello World</Text>
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
-        <MyTableComponent /> 
-
-      </View>
+      </View> 
+      <User />
+        <MyTableComponent />
+    <Pump/>
     </View>
   );
 }
@@ -39,5 +43,3 @@ const styles = StyleSheet.create({
     color: "#38434D",
   },
 });
-
-
