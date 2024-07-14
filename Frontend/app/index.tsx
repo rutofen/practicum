@@ -1,4 +1,6 @@
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import User from '../src/pages/user'
 import {Tab} from "../src/components/tab";
 import MyTableComponent from '../src/components/MyTableComponent';
 
@@ -9,6 +11,8 @@ export default function Page() {
         <Tab color="red"/>
         <Text style={styles.title}>Hello World</Text>
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
+      </View> 
+      <User />
 
         <MyTableComponent />
       </View>
