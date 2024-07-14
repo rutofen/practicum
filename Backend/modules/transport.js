@@ -130,5 +130,3 @@ module.exports = {
     deleteTransport,
     getTransports
 };
-
-

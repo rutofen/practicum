@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const pumpRouter = require('./routers/pump');
 const statusRouter = require('./routers/status');
 const { create_tracking_table } = require('./core/config_db');
+const userRouter = require('./routers/usersRoutes');
 const pumpRouter = require('./routers/pump');
 const statusRouter = require('./routers/status');
 const statusTransport = require('./routers/statusTransport');
@@ -42,6 +43,8 @@ app.use('/api', statusTransport);
 app.use('/api', TransportRouter);
 app.use('/api', routesRouter);
 app.use('/tracking', trackingRouter);
+app.use('/api', userRouter);
+app.use('/api', routesRouter);
 app.use('/tracking', trackingRouter)
 
 app.get('/', (req, res) => {
