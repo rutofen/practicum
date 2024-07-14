@@ -1,24 +1,28 @@
 
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import Status from '../src/pages/status';
 import Pump from "../src/pages/pump";
 
 import User from '../src/pages/user'
-import {Tab} from "../src/components/tab";
+import { Tab } from "../src/components/tab";
 import MyTableComponent from '../src/components/MyTableComponent';
 
 export default function Page() {
   return (
     <View style={styles.container}>
       <View style={styles.main}>
-        <Tab color="red"/>
+        <Tab color="red" />
         <Text style={styles.title}>Hello World</Text>
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
-      </View> 
-      <User />
+        <Status />
+        <User />
         <MyTableComponent />
-    <Pump/>
+
+        <Pump />
+      </View>
     </View>
+
   );
 }
 
