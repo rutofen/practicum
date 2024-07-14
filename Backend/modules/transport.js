@@ -1,16 +1,17 @@
 const { pool } = require("../core/config_db");
 
-async function getOpenTransports() {
+async function getOpenTransports(statusDescription) {
     const query = `
         SELECT t.*
         FROM Transport t
-        JOIN statustransport st ON t.id = st.id
-        JOIN status s ON st.status_id = status_id
-        WHERE s.descreption = 'Order';
+        JOIN StatusTransport st ON t.id = st.transport_id
+        JOIN Status s ON st.status_id = s.id
+        WHERE s.description = $1;
     `;
-    const result = await db.query(query);
+    const result = await db.query(query, [statusDescription]);
     return result.rows;
 }
+
 
 async function getDoneTransports() {
     const query = `
