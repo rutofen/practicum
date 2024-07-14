@@ -8,28 +8,32 @@ async function getStatusList() {
         throw error;
     }
 }
-
-async function addStatus(description) {
+async function addStatus(description, color) {
     if (!description || typeof description !== 'string')
         throw new Error('Invalid description');
+    if (!color || typeof color !== 'string')
+        throw new Error('Invalid color'); 
     try {
-        const result = await pool.query('INSERT INTO status (description) VALUES ($1) RETURNING *', [description]);
+        const result = await pool.query('INSERT INTO status (description, color) VALUES ($1, $2) RETURNING *', [description, color]); 
         return result.rows[0];
     } catch (error) {
         throw error;
     }
 }
-async function updateStatus(id, description) {
+async function updateStatus(id, description, color) {
     if (!description || typeof description !== 'string')
         throw new Error('Invalid description');
+    if (!color || typeof color !== 'string')
+        throw new Error('Invalid color'); 
     try {
-        const result = await pool.query('UPDATE status SET description = $1 WHERE status_id = $2 RETURNING *', [description, id]);
+        const result = await pool.query('UPDATE status SET description = $1, color = $2 WHERE status_id = $3 RETURNING *', [description, color, id]); 
         return result.rows[0];
     } catch (error) {
-        throw error;
+        
+        
+throw error;
     }
-}
-async function deleteStatus(id) {
+}async function deleteStatus(id) {
     try {
         const result = await pool.query('DELETE FROM status WHERE status_id = $1 RETURNING *', [id]);
         return result.rows;
