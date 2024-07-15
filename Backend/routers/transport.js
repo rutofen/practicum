@@ -48,7 +48,6 @@ router.get('/getTransport/:id', async (req, res) => {
 router.get('/getTransports', async (req, res) => {
     try {
         const transports = await transports_modules.getTransports();
-        console.log("tryyyy");
         res.json(transports);
     } catch (err) {
         console.error('Error fetching transports', err);
