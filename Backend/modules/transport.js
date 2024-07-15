@@ -1,6 +1,6 @@
 const { pool } = require("../core/config_db");
 
-async function getOpenTransports(statusDescription) {
+async function getTransportsByStatus(statusDescription) {
     const query = `
         SELECT t.*
         FROM Transport t
@@ -9,19 +9,6 @@ async function getOpenTransports(statusDescription) {
         WHERE s.description = $1;
     `;
     const result = await db.query(query, [statusDescription]);
-    return result.rows;
-}
-
-
-async function getDoneTransports() {
-    const query = `
-        SELECT t.*
-        FROM Transport t
-        JOIN statustransport st ON t.id = st.id
-        JOIN status s ON st.status_id = status_id
-        WHERE s.descreption = 'finished';
-    `;
-    const result = await db.query(query);
     return result.rows;
 }
 
@@ -123,8 +110,7 @@ const deleteTransport = async (id) => {
 };
 
 module.exports = {
-    getOpenTransports,
-    getDoneTransports,
+    getTransportsByStatus,
     createTransport,
     getTransportById,
     updateTransport,
