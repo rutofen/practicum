@@ -2,6 +2,20 @@ const { Pool } = require('pg');
 const { db_name, db_user, db_pass, db_host, db_port } = require('../config');
 require('dotenv').config();
 
+module.exports = { pool };
+
+const { Pool } = require('pg');
+
+const pool  = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'drivers', 
+  password: 'rivka', 
+  port: 5432,
+  ssl:false
+});
+
+async function create_tracking_table() {
 const pool = new Pool({
   user: process.env.DB_USERNAME || db_user,
   password: process.env.DB_PASSWORD || db_pass,
@@ -54,13 +68,52 @@ const createTableIfNotExists = async (tableName, columnsDefinition) => {
       ${columnsDefinition}
     );
   `;
+
+  const createTableQuery = `
+    CREATE TABLE driver (
+      Id SERIAL PRIMARY KEY,
+      Name VARCHAR(100) NOT NULL,
+      WorkTime INTEGER NOT NULL
+    );
+  `;
+  let client;
+  try {
+    client = await pool.connect();
+    const result = await client.query(checkTableQuery);
+    const tableExists = result.rows[0].exists;
+
+    if (!tableExists) {
+      await client.query(createTableQuery);
+      console.log('Created driver table successfully');
+    } else {
+      console.log('Driver table already exists');
+    }
+  } catch (err) {
+    console.error('Error checking/creating driver table', err);
   
   try {
     await pool.query(query);
   } catch (error) {
     console.error('Error creating table:', error.message);
     throw error;
+  } 
+
+  finally {
+    if (client) {
+      client.release();
+    }
+    await pool.query(query);
+    console.log('Table created or already exists');
   }
+}
+module.exports = {
+  pool,
+  poolusers,
+  create_tracking_table,
+};
+  createTableIfNotExists
+}
+
 };
 
 module.exports = {
