@@ -17,11 +17,11 @@ const pool  = new Pool({
 
 async function create_tracking_table() {
 const pool = new Pool({
-  user: process.env.DB_USERNAME || db_user,
-  password: process.env.DB_PASSWORD || db_pass,
-  host: process.env.DB_HOST || db_host,
-  port: process.env.DB_PORT || db_port,
-  database: process.env.DB_NAME || db_name,
+  user: process.env.DB_USERNAME|| db_user,
+  password: process.env.DB_PASSWORD|| db_pass,
+  host: process.env.DB_HOST|| db_host,
+  port: process.env.DB_PORT|| db_port,
+  database: process.env.DB_NAME|| db_name,
 });
 
 async function create_users_table() {
@@ -106,16 +106,10 @@ const createTableIfNotExists = async (tableName, columnsDefinition) => {
     console.log('Table created or already exists');
   }
 }
-module.exports = {
-  pool,
-  poolusers,
-  create_tracking_table,
-};
-  createTableIfNotExists
+
 }
 
 };
-
 module.exports = {
   pool,
   create_users_table,

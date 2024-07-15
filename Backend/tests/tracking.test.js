@@ -158,3 +158,32 @@ describe('Tracking Module Negative Tests', () => {
         await expect(trackingModule.deleteTracking(existingTrackId)).rejects.toThrow()
     })
 })
+
+
+
+
+
+
+
+const { getTransportsForToday } = require('../modules/tracking');
+
+describe('getTrackingsForToday', () => {
+    test('should return an array of trackings for today', async () => {
+        const trackings = await getTrackingsForToday();
+        expect(Array.isArray(trackings)).toBe(true);
+        // לבדוק שהמערך לא ריק ושכל רשומה בו מכילה את המאפיינים המצופים
+        // לדוגמה:
+        expect(trackings.length).toBeGreaterThan(0);
+        expect(trackings[0]).toHaveProperty('id');
+        expect(trackings[0]).toHaveProperty('time');
+        // וכן הלאה לפי המבנה של הנתונים שלך
+    });
+
+
+    // test('should return an empty array if no trackings for today', async () => {
+    //     // להפעיל קוד שמוסיף או מוחק הובלות להיום הנוכחי כדי לוודא שאין הובלות
+    //     const trackings = await getTrackingsForToday();
+    //     expect(Array.isArray(trackings)).toBe(true);
+    //     expect(trackings).toHaveLength(0);
+    // });
+});

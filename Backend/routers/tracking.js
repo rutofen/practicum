@@ -14,6 +14,7 @@ router.get('/getTracking', async (req, res) => {
 })
 
 
+<<<<<<< HEAD
 router.get('/getTrackingsForToday', async (req, res) => {
     try {
         const transports = await trackingModule.getTrackingsForToday()
@@ -24,6 +25,8 @@ router.get('/getTrackingsForToday', async (req, res) => {
     }
 })
 
+=======
+>>>>>>> c085faf6b5db791b9747415932ad68e3efb5e7ee
 router.post('/', async (req, res) => {
     const { location_lat, location_lng, time, transport_id } = req.body
     try {
