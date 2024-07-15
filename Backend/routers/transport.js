@@ -6,8 +6,7 @@ require('dotenv').config();
 
 router.get('/open', async (req, res) => {
     try {
-        const statusDescription = 'Order'; 
-        const openTransports = await transportsModules.getOpenTransports(statusDescription);
+        const openTransports = await transportModules.getTransportsByStatus('Order');
         res.json(openTransports);
     } catch (err) {
         res.status(500).send(err.message);
@@ -16,12 +15,13 @@ router.get('/open', async (req, res) => {
 
 router.get('/done', async (req, res) => {
     try {
-        const doneTransports = await transportsModules.getDoneTransports();
+        const doneTransports = await transportModules.getTransportsByStatus('finished');
         res.json(doneTransports);
     } catch (err) {
         res.status(500).send(err.message);
     }
 });
+
 router.post('/addTransport', async (req, res) => {
     try {
         const transport = await transports_modules.createTransport(req.body);
