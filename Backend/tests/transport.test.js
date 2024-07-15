@@ -139,3 +139,17 @@ describe('Negative tests', () => {
 
     });
 })
+
+
+
+const { getTransportsForToday } = require('../modules/transport');
+
+describe('getTransportsForToday', () => {
+    test('should return an array of transports for today', async () => {
+        const transports = await getTransportsForToday();
+        expect(Array.isArray(transports)).toBe(true);
+        expect(transports.length).toBeGreaterThan(0);
+        expect(transports[0]).toHaveProperty('id');
+        expect(transports[0]).toHaveProperty('time');
+    });
+});

@@ -108,7 +108,20 @@ const getTransportsForToday = async () => {
         const today = new Date().toISOString().split('T')[0];
         const query = 'SELECT * FROM "Transport" WHERE date = $1';
         const res = await client.query(query, [today]);
-        return res.rows;
+        return res.rows.map(row => ({
+            id: row.track_id,
+            date: row.track_date,
+            location_address: row.location_address,
+            location_lat: row.location_lat,
+            location_lng: row.location_lng,
+            count_order: row.count_order,
+            additional_quantity: row.additional_quantity,
+            status: row.status,
+            driver_id: row.driver_id,
+            pump_id: row.pump_id,
+            pipe_count: row.pipe_count,
+            transfers: row.transfers,        
+        }))
     }
     catch (error) {
         console.error('Error executing query', error);
