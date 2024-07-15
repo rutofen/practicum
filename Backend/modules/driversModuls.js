@@ -13,7 +13,7 @@ async function query(text, params) {
   const res = await PullFromSQL.query(text, params);
   const duration = Date.now() - start;
   console.log('Executed query:', { text, duration, rows: res.rowCount });
-  return res;
+  return res.rowCount;
 }
 
 async function createDriver(name, workTime) {
