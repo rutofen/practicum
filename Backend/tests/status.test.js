@@ -17,10 +17,10 @@ jest.mock('../modules/status', () => ({
 describe('status router', () => {
     describe('GET /api/status', () => {
         it('should return statuses', async () => {
-            statusModule.getStatusList.mockResolvedValue([{ id: 1, description: 'Test' }]);
+            statusModule.getStatusList.mockResolvedValue([{ id: 1, description: 'Test', color: '#ff0000' }]);
             const response = await request(app).get('/api/status');
             expect(response.status).toBe(200);
-            expect(response.body).toEqual([{ id: 1, description: 'Test' }]);
+            expect(response.body).toEqual([{ id: 1, description: 'Test', color: '#ff0000' }]);
         });
 
         it('should return 500 if there is an error', async () => {
@@ -33,19 +33,19 @@ describe('status router', () => {
 
     describe('POST /api/status', () => {
         it('should add a new status', async () => {
-            statusModule.addStatus.mockResolvedValue({ id: 1, description: 'New Status' });
+            statusModule.addStatus.mockResolvedValue({ id: 1, description: 'New Status', color: '#00ff00' });
             const response = await request(app)
                 .post('/api/status')
-                .send({ description: 'New Status' });
+                .send({ description: 'New Status', color: '#00ff00' });
             expect(response.status).toBe(201);
-            expect(response.body).toEqual({ id: 1, description: 'New Status' });
+            expect(response.body).toEqual({ id: 1, description: 'New Status', color: '#00ff00' });
         });
 
         it('should return 500 if there is an error', async () => {
             statusModule.addStatus.mockRejectedValue(new Error('Error adding status'));
             const response = await request(app)
                 .post('/api/status')
-                .send({ description: 'New Status' });
+                .send({ description: 'New Status', color: '#00ff00' });
             expect(response.status).toBe(500);
             expect(response.body).toEqual({ error: 'Error adding status' });
         });
@@ -53,19 +53,19 @@ describe('status router', () => {
 
     describe('PUT /api/status/:id', () => {
         it('should update a status', async () => {
-            statusModule.updateStatus.mockResolvedValue({ id: 1, description: 'Updated Status' });
+            statusModule.updateStatus.mockResolvedValue({ id: 1, description: 'Updated Status', color: '#0000ff' });
             const response = await request(app)
                 .put('/api/status/1')
-                .send({ description: 'Updated Status' });
+                .send({ description: 'Updated Status', color: '#0000ff' });
             expect(response.status).toBe(200);
-            expect(response.body).toEqual({ id: 1, description: 'Updated Status' });
+            expect(response.body).toEqual({ id: 1, description: 'Updated Status', color: '#0000ff' });
         });
 
         it('should return 500 if there is an error', async () => {
             statusModule.updateStatus.mockRejectedValue(new Error('Error updating status'));
             const response = await request(app)
                 .put('/api/status/1')
-                .send({ description: 'Updated Status' });
+                .send({ description: 'Updated Status', color: '#0000ff' });
             expect(response.status).toBe(500);
             expect(response.body).toEqual({ error: 'Error updating status' });
         });
@@ -73,10 +73,10 @@ describe('status router', () => {
 
     describe('DELETE /api/status/:id', () => {
         it('should delete a status', async () => {
-            statusModule.deleteStatus.mockResolvedValue([{ id: 1, description: 'Deleted Status' }]);
+            statusModule.deleteStatus.mockResolvedValue([{ id: 1, description: 'Deleted Status', color: '#000000' }]);
             const response = await request(app).delete('/api/status/1');
             expect(response.status).toBe(200);
-            expect(response.body).toEqual([{ id: 1, description: 'Deleted Status' }]);
+            expect(response.body).toEqual([{ id: 1, description: 'Deleted Status', color: '#000000' }]);
         });
 
         it('should return 500 if there is an error', async () => {
