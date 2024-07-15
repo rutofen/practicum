@@ -29,14 +29,7 @@ async function create_users_table() {
     SELECT EXISTS (
       SELECT 1
       FROM information_schema.tables
-<<<<<<< HEAD
-      WHERE table_name = 'driver'
-    );
-      WHERE table_schema = 'public'
-      AND table_name = 'tracking'
-=======
       WHERE table_name = 'users'
->>>>>>> 72835cb1cf56911b842c69a4b8705aa751ee0892
     );
   `;
 
