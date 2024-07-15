@@ -9,7 +9,6 @@ describe('Transport API', () => {
         await pool.end();
     });
 
-
     test('should create a new transport', async () => {
         const response = await request(app)
             .post('/api/addTransport')
@@ -74,13 +73,24 @@ describe('Transport API', () => {
 
         expect(response.statusCode).toBe(200);
         expect(Array.isArray(response.body)).toBe(true);
-
     });
 
+    test('should get all open transports', async () => {
+        const response = await request(app).get('/transports/open');
+
+        expect(response.statusCode).toBe(200);
+        expect(Array.isArray(response.body)).toBe(true);
+    });
+
+    test('should get all done transports', async () => {
+        const response = await request(app).get('/transports/done');
+
+        expect(response.statusCode).toBe(200);
+        expect(Array.isArray(response.body)).toBe(true);
+    });
 });
 
 describe('Negative tests', () => {
-
     test('should not create a transport with missing fields', async () => {
         const response = await request(app)
             .post('/api/addTransport')
@@ -136,7 +146,6 @@ describe('Negative tests', () => {
         } catch (err) {
             console.error(err);
         }
-
     });
 })
 

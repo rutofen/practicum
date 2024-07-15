@@ -1,5 +1,17 @@
 const { pool } = require("../core/config_db");
 
+async function getTransportsByStatus(statusDescription) {
+    const query = `
+        SELECT t.*
+        FROM Transport t
+        JOIN StatusTransport st ON t.id = st.transport_id
+        JOIN Status s ON st.status_id = s.id
+        WHERE s.description = $1;
+    `;
+    const result = await db.query(query, [statusDescription]);
+    return result.rows;
+}
+
 const createTransport = async (transport) => {
     let client;
     try {
@@ -130,6 +142,7 @@ const getTransportsForToday = async () => {
 }
 
 module.exports = {
+    getTransportsByStatus,
     createTransport,
     getTransportById,
     updateTransport,
@@ -137,3 +150,4 @@ module.exports = {
     getTransports,
     getTransportsForToday
 };
+
