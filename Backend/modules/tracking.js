@@ -42,34 +42,6 @@ const getAllTracking = async () => {
 
 
 
-const getTrackingsForToday = async () => {
-    let client;
-    try {
-        client = await pool.connect();
-        const today = new Date().toISOString().split('T')[0];
-        const query = 'SELECT * FROM tracking WHERE time::date = $1';
-        const res = await client.query(query, [today]);
-        return res.rows.map(row => ({
-            id: row.track_id,
-            location_lat: row.location_lat,
-            location_lng: row.location_lng,
-            time: row.time,
-            transport_id: row.transport_id,        
-        }))
-    }
-    catch (error) {
-        console.error('Error executing query', error);
-        throw error;
-    }
-    finally {
-        if (client) {
-            client.release();
-        }
-    }
-}
-
-
-
 const updateTracking = async (track_id, location_lat, location_lng, time, transport_id) => {
     let client
     try {
@@ -121,6 +93,5 @@ module.exports = {
     createTracking,
     getAllTracking,
     updateTracking,
-    deleteTracking,
-    getTrackingsForToday
+    deleteTracking
 }
