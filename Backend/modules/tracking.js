@@ -49,7 +49,13 @@ const getTrackingsForToday = async () => {
         const today = new Date().toISOString().split('T')[0];
         const query = 'SELECT * FROM tracking WHERE time::date = $1';
         const res = await client.query(query, [today]);
-        return res.rows;
+        return res.rows.map(row => ({
+            id: row.track_id,
+            location_lat: row.location_lat,
+            location_lng: row.location_lng,
+            time: row.time,
+            transport_id: row.transport_id,        
+        }))
     }
     catch (error) {
         console.error('Error executing query', error);
