@@ -44,13 +44,8 @@ const getTransports = async () => {
     let client;
     try {
         client = await pool.connect();
-        console.log("Connected to database");
-        console.log("before select----");
         const query = 'SELECT * FROM "Transport"';
-        console.log("Executing query", query);
-        // console.log("try2222222222222222");
         const res = await client.query(query);
-        console.log("Query executed successfully");
         return res.rows;
     } catch (error) {
         console.error('Error executing query', error);
