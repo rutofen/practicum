@@ -1,0 +1,64 @@
+# name: Lint Code Base
+
+# on: [push, pull_request]
+
+# jobs:
+#   build:
+#     name: Lint Code Base
+#     runs-on: ubuntu-latest
+
+#     steps:
+
+#       - name: Checkout Code
+#         uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
+      
+#       - name: Lint Code Base
+#         uses: github/super-linter@v4
+
+
+
+
+
+
+name: Lint JavaScript files
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+      -dev
+      -feature/ci-linter
+  pull_request:
+    branches:
+      - main
+      - master
+      - develop
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Upload lint results
+        uses: actions/upload-artifact@v2
+        with:
+          name: eslint-results
+          path: lint-results
