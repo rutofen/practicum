@@ -15,10 +15,10 @@ jobs:
         node-version: '14'
 
     - name: Install dependencies
-      run: npm install
+      run: npm ci
 
-    - name: Install ESLint
-      run: npm install eslint --save-dev
+    - name: Verify ESLint installation
+      run: npx eslint --version
 
     - name: Run ESLint
-      run: npm run lint
+      run: npx eslint .
