@@ -13,12 +13,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
-
-    - name: Upgrade Node.js to stable
-      run: |
-        npm install -g n
-        sudo n stable
+        node-version: '18'
 
     - name: Install dependencies
       run: npm install
