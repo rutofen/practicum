@@ -1,40 +1,25 @@
-name: Lint JavaScript files
+name: Lint Code Base
 
-on:
-  push:
-    branches:
-      - main
-      - master
-      - develop
-      - dev
-      - feature/ci-linter
-  pull_request:
-    branches:
-      - main
-      - master
-      - develop
+on: [push]
 
 jobs:
   lint:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Run ESLint
-        run: npm run lint
+    - name: Install ESLint
+      run: npm install eslint --save-dev
 
-      - name: Upload lint results
-        uses: actions/upload-artifact@v2
-        with:
-          name: eslint-results
-          path: lint-results
+    - name: Run ESLint
+      run: npx eslint .
