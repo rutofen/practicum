@@ -15,8 +15,16 @@ jobs:
       with:
         node-version: '14'
 
+    - name: Upgrade Node.js to stable
+      run: |
+        npm install -g n
+        sudo n stable
+
     - name: Install dependencies
       run: npm install
+
+    - name: Upgrade ESLint to latest
+      run: npm install eslint@latest
 
     - name: Run ESLint
       run: npx eslint .
