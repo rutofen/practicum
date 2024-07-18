@@ -26,5 +26,5 @@ jobs:
     - name: Upgrade ESLint to latest
       run: npm install eslint@latest
 
-    # - name: Run ESLint
-    #   run: npx eslint .
+    - name: Run ESLint
+      run: npx eslint .
