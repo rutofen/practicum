@@ -47,5 +47,5 @@ jobs:
     - name: Install specific ESLint version
       run: npm install eslint@8.45.0
 
-    - name: Run ESLint
-      run: npx eslint .
+    - name: Run ESLint with default settings
+      run: npx eslint . --no-eslintrc --env node --env es2021
