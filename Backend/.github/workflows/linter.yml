@@ -1,4 +1,4 @@
-name: JavaScript Lint
+name: Lint Code Base
 
 on: [push]
 
@@ -7,21 +7,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '14'
 
-    - name: Install ESLint globally
-      run: npm install -g eslint
-
-    - name: Verify ESLint installation
-      run: eslint --version
-
-    - name: Install project dependencies
-      run: npm ci
+    - name: Install dependencies
+      run: npm install
 
     - name: Run ESLint
-      run: eslint .
+      run: npx eslint .
